@@ -10,12 +10,21 @@ import org.beans.BeanException;
 import org.beans.Pseudo;
 import org.beans.Utilisateur;
 
+import dao.DaoException;
+import dao.DaoFactory;
+import dao.UtilisateurDao;
+
 /**
  * Servlet implementation class CreerUtilisateur
  */
 public class CreerUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private UtilisateurDao utilisateurDao;
+
+    public void init() throws ServletException {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        this.utilisateurDao = daoFactory.getUtilisateurDao();
+    }
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,10 +37,10 @@ public class CreerUtilisateur extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Pseudo tableNoms = new Pseudo();
+        
         try {
-			request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
-		} catch (BeanException e) {
+			request.setAttribute("utilisateurs", utilisateurDao.lister());
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -50,12 +59,16 @@ public class CreerUtilisateur extends HttpServlet {
         utilisateur.setMail(request.getParameter("mail"));
         utilisateur.setMdp(request.getParameter("mdp"));
         
-        Pseudo tableNoms = new Pseudo();
-        tableNoms.ajouterUtilisateur(utilisateur);
+        try {
+			utilisateurDao.ajouterUtilisateur(utilisateur);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         try {
-			request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
-		} catch (BeanException e) {
+			request.setAttribute("utilisateurs", utilisateurDao.lister());
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

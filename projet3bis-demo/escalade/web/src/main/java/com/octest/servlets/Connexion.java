@@ -1,6 +1,8 @@
 package com.octest.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +55,7 @@ public class Connexion extends HttpServlet {
         
         Pseudo tableNoms = new Pseudo();
         tableNoms.ajouterUtilisateur(utilisateur);
+       
         
         try {
 			request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());

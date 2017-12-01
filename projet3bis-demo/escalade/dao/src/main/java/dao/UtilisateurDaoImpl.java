@@ -1,6 +1,10 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,20 +14,23 @@ import org.beans.Utilisateur;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
     private DaoFactory daoFactory;
+	private UtilisateurDao utilisateurDao;
 
     UtilisateurDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-    public void ajouter (Utilisateur utilisateur) throws DaoException {
+    public void ajouterUtilisateur (Utilisateur utilisateur) throws DaoException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO noms(nom, prenom) VALUES(?, ?);");
+            preparedStatement = connexion.prepareStatement("INSERT INTO noms(nom, prenom, mail, mdp) VALUES(?, ?, ?, ?);");
             preparedStatement.setString(1, utilisateur.getNom());
             preparedStatement.setString(2, utilisateur.getPrenom());
+            preparedStatement.setString(3, utilisateur.getMail());
+            preparedStatement.setString(4, utilisateur.getMdp());
 
             preparedStatement.executeUpdate();
             connexion.commit();
@@ -57,15 +64,20 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT nom, prenom FROM noms;");
+            resultat = statement.executeQuery("SELECT nom, prenom, mail, mdp FROM noms;");
 
             while (resultat.next()) {
                 String nom = resultat.getString("nom");
                 String prenom = resultat.getString("prenom");
+                
+                String mail = resultat.getString("mail");
+                String mdp = resultat.getString("mdp");
 
                 Utilisateur utilisateur = new Utilisateur();
                 utilisateur.setNom(nom);
                 utilisateur.setPrenom(prenom);
+                utilisateur.setMail(mail);
+                utilisateur.setMdp(mdp);
 
                 utilisateurs.add(utilisateur);
             }
@@ -86,6 +98,5 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         return utilisateurs;
     }
 
-	
 
 }

@@ -26,9 +26,33 @@
  	<servlet-class>com.octest.servlets.CreerUtilisateur</servlet-class>
  </servlet>
 
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>Sites</display-name>
+ 	<servlet-name>Sites</servlet-name>
+ 	<servlet-class>com.octest.servlets.Sites</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>Topos</display-name>
+ 	<servlet-name>Topos</servlet-name>
+ 	<servlet-class>com.octest.servlets.Topos</servlet-class>
+ </servlet>
+
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
    	<url-pattern>/creerUtilisateur</url-pattern>
+   </servlet-mapping>
+   
+   <servlet-mapping>
+   	<servlet-name>Sites</servlet-name>
+   	<url-pattern>/sites</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>Topos</servlet-name>
+   	<url-pattern>/topos</url-pattern>
    </servlet-mapping>
   
 

@@ -37,4 +37,12 @@ public class DaoFactory {
     public UtilisateurDao getUtilisateurDao() {
         return new UtilisateurDaoImpl(this);
     }
+    
+    public SiteDao getSiteDao() {
+        return new SiteDaoImpl(this);
+    }
+    public TopoDao getTopoDao() {
+        return new TopoDaoImpl(this);
+    }
+    
 }

@@ -5,4 +5,6 @@
     	<li><a href="/web/connexion">connexion</a></li>
     	<li><a href="/web/toto">Bonjour</a></li>
     	<li><a href="/web/creerUtilisateur">Créer compte</a></li>
+    	<li><a href="/web/sites">liste des sites</a></li>
+    	<li><a href="/web/topos">liste des topos</a></li>
     </ul>
