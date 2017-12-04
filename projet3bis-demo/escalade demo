@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 9.6.5
 
--- Started on 2017-12-01 18:46:40
+-- Started on 2017-12-04 19:14:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -89,7 +89,7 @@ CREATE TABLE site (
     pays character varying NOT NULL,
     region character varying NOT NULL,
     code_postal integer NOT NULL,
-    id_site integer NOT NULL
+    id_site bigint NOT NULL
 );
 
 
@@ -167,7 +167,7 @@ ALTER TABLE ONLY noms ALTER COLUMN id SET DEFAULT nextval('noms_id_seq'::regclas
 
 
 --
--- TOC entry 2016 (class 2604 OID 16814)
+-- TOC entry 2016 (class 2604 OID 16855)
 -- Name: site id_site; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -190,16 +190,6 @@ ALTER TABLE ONLY topo ALTER COLUMN id_topo SET DEFAULT nextval('topo_id_topo_seq
 
 COPY noms (id, nom, prenom, mail, mdp) FROM stdin;
 22	joe	cocker	jokoker@gmail.com	losc
-39	johnson	ja k	jack@fou.fr	losc
-38	ouio	loll	filou@hotmail.fr	losc
-52	a	a	a	a
-53	rené	lataupe	biggie@smalls.com	losc
-54	vij	ed	edvij@gmail.com	losc
-55	ed	vij	edvij@gmail.com	losc
-56	mike	maignan	kol@koz.fr	losc
-57	losc	losc	losc	losc
-59	binge	sindik	lo	losc
-60				
 \.
 
 
@@ -209,7 +199,7 @@ COPY noms (id, nom, prenom, mail, mdp) FROM stdin;
 -- Name: noms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('noms_id_seq', 61, true);
+SELECT pg_catalog.setval('noms_id_seq', 71, true);
 
 
 --
@@ -262,7 +252,7 @@ ALTER TABLE ONLY noms
 
 
 --
--- TOC entry 2021 (class 2606 OID 16822)
+-- TOC entry 2021 (class 2606 OID 16857)
 -- Name: site site_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -280,7 +270,7 @@ ALTER TABLE ONLY topo
 
 
 --
--- TOC entry 2024 (class 2606 OID 16850)
+-- TOC entry 2024 (class 2606 OID 16858)
 -- Name: topo site_topo_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -288,7 +278,7 @@ ALTER TABLE ONLY topo
     ADD CONSTRAINT site_topo_fk FOREIGN KEY (id_site) REFERENCES site(id_site);
 
 
--- Completed on 2017-12-01 18:46:40
+-- Completed on 2017-12-04 19:14:16
 
 --
 -- PostgreSQL database dump complete
