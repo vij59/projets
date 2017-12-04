@@ -49,22 +49,35 @@ public class CreerUtilisateur extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         Utilisateur utilisateur = new Utilisateur();
-        try {
-			utilisateur.setNom(request.getParameter("nom"));
-		} catch (BeanException e1) {
+       
+        try { // verification du mail
+			if (utilisateurDao.validerMail(request.getParameter("mail")) == true) 
+			{
+			
+			try {
+				utilisateur.setNom(request.getParameter("nom"));
+			} catch (BeanException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			utilisateur.setPrenom(request.getParameter("prenom"));
+      
+			utilisateur.setMail(request.getParameter("mail"));
+			utilisateur.setMdp(request.getParameter("mdp"));
+			
+			try {
+				utilisateurDao.ajouterUtilisateur(utilisateur);
+			} catch (DaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//fin du if validerMail
+			}
+		} catch (DaoException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        utilisateur.setPrenom(request.getParameter("prenom"));
-        utilisateur.setMail(request.getParameter("mail"));
-        utilisateur.setMdp(request.getParameter("mdp"));
-        
-        try {
-			utilisateurDao.ajouterUtilisateur(utilisateur);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+       
         
         try {
 			request.setAttribute("utilisateurs", utilisateurDao.lister());

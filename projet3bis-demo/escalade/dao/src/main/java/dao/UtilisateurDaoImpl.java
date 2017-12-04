@@ -98,5 +98,45 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         return utilisateurs;
     }
 
+    public boolean validerMail(String mail) throws DaoException {
+        Connection connexion = null;
+        Statement statement = null;
+        ResultSet resultat = null;
+        boolean res = true;
+        int x=0;
+
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT  mail FROM noms;");
+
+            while (resultat.next()) {
+               
+                String email = resultat.getString("mail");
+               if (mail.equals(email)) {
+            	   System.out.println("le mail existe déjà");
+            	   x++;
+               }
+               
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Impossible de communiquer avec la base de donn�es");
+        } catch (Exception e) {
+            throw new DaoException("Les donn�es de la base sont invalides");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de donn�es");
+            }
+        }
+        
+        if (x>0) { res = false;}
+	
+	return res;
+    }
 
 }

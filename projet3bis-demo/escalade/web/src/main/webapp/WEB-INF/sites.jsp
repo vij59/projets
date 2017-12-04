@@ -14,16 +14,16 @@
       <c:otherwise>
         <form method="post" action="sites">
             <label for="nom_site">nom du site : </label>
-            <input type="text" name="nom_site" id="nom_site" />
+            <input type="text" name="nom_site" id="nom_site" /><br/>
             
              <label for="pays">pays : </label>
-            <input type="text" name="pays" id="pays" />
+            <input type="text" name="pays" id="pays" /><br/>
             
              <label for="region">region : </label>
-            <input type="text" name="region" id="region" />
+            <input type="text" name="region" id="region" /><br/>
             
                   <label for="code_postal">code postal : </label>
-            <input type="text" name="code_postal" id="code_postal" />
+            <input type="text" name="code_postal" id="code_postal" /><br/>
             
             <input type="submit" />
         </form>

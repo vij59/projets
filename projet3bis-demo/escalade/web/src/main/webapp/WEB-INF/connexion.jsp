@@ -12,7 +12,7 @@
       <c:otherwise>
         <form method="post" action="connexion">
             <label for="mail">mail : </label>
-            <input type="text" name="mail" id="mail" />
+            <input type="text" name="mail" id="mail" /><br/>
             
             <label for="mdp">mdp : </label>
             <input type="mdp" name="mdp" id="mdp" />

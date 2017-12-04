@@ -10,8 +10,8 @@
   
      <ul>
      <p>Liste des Topos</p>
-	    <c:forEach var="site" items="${ topos }">
-	    	<li><c:out value="${ topo.nomTopo }" /><c:out value="${ topo.fichier }" /></li>
+	    <c:forEach var="topo" items="${ topos }">
+	    	<li><a href="<c:out value="${ topo.fichier }" />"><c:out value="${ topo.fichier }" /></a></li>
 	    </c:forEach>
 	</ul>   
 
