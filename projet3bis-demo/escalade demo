@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 9.6.5
 
--- Started on 2017-12-04 19:14:14
+-- Started on 2017-12-06 22:08:42
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -189,6 +189,7 @@ ALTER TABLE ONLY topo ALTER COLUMN id_topo SET DEFAULT nextval('topo_id_topo_seq
 --
 
 COPY noms (id, nom, prenom, mail, mdp) FROM stdin;
+72	vij	ed	lavij@hotmail.com	losc
 22	joe	cocker	jokoker@gmail.com	losc
 \.
 
@@ -199,7 +200,7 @@ COPY noms (id, nom, prenom, mail, mdp) FROM stdin;
 -- Name: noms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('noms_id_seq', 71, true);
+SELECT pg_catalog.setval('noms_id_seq', 72, true);
 
 
 --
@@ -210,6 +211,7 @@ SELECT pg_catalog.setval('noms_id_seq', 71, true);
 
 COPY site (nom_site, pays, region, code_postal, id_site) FROM stdin;
 joe	france	nord	59000	1
+pilgrim	espagne	catalogne	22334	2
 \.
 
 
@@ -219,7 +221,7 @@ joe	france	nord	59000	1
 -- Name: site_id_site_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('site_id_site_seq', 1, true);
+SELECT pg_catalog.setval('site_id_site_seq', 2, true);
 
 
 --
@@ -278,7 +280,7 @@ ALTER TABLE ONLY topo
     ADD CONSTRAINT site_topo_fk FOREIGN KEY (id_site) REFERENCES site(id_site);
 
 
--- Completed on 2017-12-04 19:14:16
+-- Completed on 2017-12-06 22:08:43
 
 --
 -- PostgreSQL database dump complete
