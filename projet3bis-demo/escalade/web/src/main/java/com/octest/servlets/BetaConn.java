@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.beans.BeanException;
 import org.beans.Pseudo;
@@ -17,9 +18,11 @@ import dao.UtilisateurDao;
 /**
  * Servlet implementation class CreerUtilisateur
  */
-public class CreerUtilisateur extends HttpServlet {
+public class BetaConn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UtilisateurDao utilisateurDao;
+	public static final String ATT_SESSION_USER = "sessionUtilisateur";
+	public static final String ATT_USER         = "utilisateur";
 
     public void init() throws ServletException {
         DaoFactory daoFactory = DaoFactory.getInstance();
@@ -28,7 +31,7 @@ public class CreerUtilisateur extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreerUtilisateur() {
+    public BetaConn() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,48 +47,51 @@ public class CreerUtilisateur extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        this.getServletContext().getRequestDispatcher("/WEB-INF/creerUtilisateur.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/betaConn.jsp").forward(request, response);
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         Utilisateur utilisateur = new Utilisateur();
        
-        try { // verification du mail
-			if (utilisateurDao.validerMail(request.getParameter("mail")) == false) 
-			{
-			
+       
 			try {
-				utilisateur.setNom(request.getParameter("nom"));
-			} catch (BeanException e1) {
+				if ((utilisateurDao.validerMail(request.getParameter("mail")) == false))
+				{
+					System.out.println("mail OK");
+					if ((utilisateurDao.validerMdp(request.getParameter("mail"), request.getParameter("mdp"))== true)) 
+						{
+     
+						utilisateur.setMail(request.getParameter("mail"));
+						utilisateur.setMdp(request.getParameter("mdp"));
+						
+						System.out.println("mot de passe concorde avec mail");
+						 HttpSession session = request.getSession();
+						  session.setAttribute( ATT_SESSION_USER, utilisateur );
+						  request.setAttribute( ATT_USER, utilisateur );
+						
+						}
+					else 
+					{
+						System.out.println("erreur de mot de passe");
+						request.setAttribute("errorMdp", "erreur de mot de passe");
+					}
+				}
+				else 
+				{
+					System.out.println("mail pas bon");
+					request.setAttribute("errorMail", "Mail pas bon");
+				}
+			} catch (DaoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			utilisateur.setPrenom(request.getParameter("prenom"));
-      
-			utilisateur.setMail(request.getParameter("mail"));
-			utilisateur.setMdp(request.getParameter("mdp"));
-			
-			try {
-				utilisateurDao.ajouterUtilisateur(utilisateur);
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			//fin du if validerMail
-			}
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			
+			
        
         
-        try {
-			request.setAttribute("utilisateurs", utilisateurDao.lister());
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+      
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/creerUtilisateur.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/betaConn.jsp").forward(request, response);
     }
 }

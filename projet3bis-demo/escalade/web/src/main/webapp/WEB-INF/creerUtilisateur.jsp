@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+<%@ include file ="pages/header.jsp"  %>
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Test</title>
+<title>Créer utilisateur</title>
 </head>
 <body>
+
+<%@ include file ="pages/navbar.jsp"  %>
      <c:choose>
       
   	  <c:when test="${ !empty form.resultat }"><p><c:out value="Bonjour ${ form.resultat }" /></p></c:when>
@@ -32,6 +34,4 @@
 	    	<li>Hello <c:out value="${ utilisateur.mail }" /></li>
 	    </c:forEach>
 	</ul>    
-  	
-</body>
-</html>
+  <%@ include file ="pages/footer.jsp"  %>

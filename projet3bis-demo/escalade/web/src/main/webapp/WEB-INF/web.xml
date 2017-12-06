@@ -7,7 +7,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Test</servlet-name>
-    <url-pattern>/toto</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
  <servlet>
@@ -40,6 +40,13 @@
  	<servlet-name>Topos</servlet-name>
  	<servlet-class>com.octest.servlets.Topos</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>BetaConn</display-name>
+ 	<servlet-name>BetaConn</servlet-name>
+ 	<servlet-class>com.octest.servlets.BetaConn</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -53,6 +60,10 @@
    <servlet-mapping>
    	<servlet-name>Topos</servlet-name>
    	<url-pattern>/topos</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>BetaConn</servlet-name>
+   	<url-pattern>/betaConn</url-pattern>
    </servlet-mapping>
   
 

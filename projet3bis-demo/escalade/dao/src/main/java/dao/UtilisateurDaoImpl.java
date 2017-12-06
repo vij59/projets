@@ -108,13 +108,14 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT  mail FROM noms;");
+            resultat = statement.executeQuery("SELECT mail FROM noms;");
 
             while (resultat.next()) {
                
                 String email = resultat.getString("mail");
                if (mail.equals(email)) {
-            	   System.out.println("le mail existe déjà");
+            	   System.out.println("le mail existe");
+            	   // si le mail existe, on augmente x
             	   x++;
                }
                
@@ -139,4 +140,50 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	return res;
     }
 
+    public boolean validerMdp(String mail, String mdp) throws DaoException {
+    	// true si connexion ok, false sinon
+        Connection connexion = null;
+        Statement statement = null;
+        ResultSet resultat = null;
+        boolean res = false;
+        int x=0;
+        
+        if (validerMail(mail) == false)
+        {
+             
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT  mdp FROM noms where mail='"+mail+"';");
+
+            while (resultat.next()) {
+               
+                String password = resultat.getString("mdp");
+               if (mdp.equals(password)) {
+            	   System.out.println("ça concorde");
+            	  // on accroit le x si le mdp du mail correspond
+            	   x++;
+               }
+               
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Impossible de communiquer avec la base de donn�es");
+        } catch (Exception e) {
+            throw new DaoException("Les donn�es de la base sont invalides");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de donn�es");
+            }
+        }
+        
+        if (x>0) { res = true;}
+        }
+        
+	return res;
+    }
 }
