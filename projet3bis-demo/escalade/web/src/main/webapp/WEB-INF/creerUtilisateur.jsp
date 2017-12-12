@@ -7,6 +7,7 @@
 <body>
 
 <%@ include file ="pages/navbar.jsp"  %>
+<br/><br/><br/>
      <c:choose>
       
   	  <c:when test="${ !empty form.resultat }"><p><c:out value="Bonjour ${ form.resultat }" /></p></c:when>

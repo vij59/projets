@@ -8,29 +8,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.beans.BeanException;
-import org.beans.Site;
+import org.beans.Voie;
+import org.beans.Secteur;
 
-public class SiteDaoImpl  implements SiteDao {
+public class VoieDaoImpl  implements VoieDao {
     private DaoFactory daoFactory;
-	private SiteDao siteDao;
+	private VoieDao voieDao;
 
-	SiteDaoImpl(DaoFactory daoFactory) {
+	VoieDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-    public void ajouterSite (Site site) throws DaoException {
+    public void ajouterVoie (Voie voie, Secteur secteur) throws DaoException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO site(nom_site, pays, region, code_postal) VALUES(?, ?, ?, ?);");
-            preparedStatement.setString(1, site.getNomSite());
-            preparedStatement.setString(2, site.getPays());
-            preparedStatement.setString(3, site.getRegion());
-            preparedStatement.setInt(4, site.getCodePostal());
-
+            preparedStatement = connexion.prepareStatement("INSERT INTO voie(nom_voie, cotation, id_secteur) VALUES(?, ?, ?);");
+            preparedStatement.setString(1, voie.getNom());
+            preparedStatement.setString(2, voie.getCotation());
+            preparedStatement.setInt(3, secteur.getId());
+            
             preparedStatement.executeUpdate();
             connexion.commit();
         } catch (SQLException e) {
@@ -54,8 +53,8 @@ public class SiteDaoImpl  implements SiteDao {
 
     }
 
-    public List<Site> lister() throws DaoException {
-        List<Site> sites = new ArrayList<Site>();
+    public List<Voie> lister() throws DaoException {
+        List<Voie> voies = new ArrayList<Voie>();
         Connection connexion = null;
         Statement statement = null;
         ResultSet resultat = null;
@@ -63,24 +62,21 @@ public class SiteDaoImpl  implements SiteDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id_site,nom_site, pays, region, code_postal FROM site;");
+            resultat = statement.executeQuery("SELECT id_voie , nom, cotation, id_secteur FROM voie;");
 
             while (resultat.next()) {
-            	int idSite = resultat.getInt("id_site");
-                String nomSite = resultat.getString("nom_site");
-                String pays = resultat.getString("pays");
-                
-                String region = resultat.getString("region");
-                int codePostal = resultat.getInt("code_postal");
+            	int idVoie = resultat.getInt("id_voie");
+                String nomVoie = resultat.getString("nom_voie");
+                String cotation = resultat.getString("cotation");
+                int idSecteur = resultat.getInt("id_secteur");
 
-                Site site = new Site();
-                site.setId(idSite);
-                site.setNomSite(nomSite);
-                site.setPays(pays);
-                site.setRegion(region);
-                site.setCodePostal(codePostal);
+                Voie voie = new Voie();
+                voie.setId(idVoie);
+                voie.setNom(nomVoie);
+                voie.setCotation(cotation);
+                voie.setIdSecteur(idSecteur);
 
-                sites.add(site);
+                voies.add(voie);
             }
         } catch (SQLException e) {
             throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -96,8 +92,9 @@ public class SiteDaoImpl  implements SiteDao {
                 throw new DaoException("Impossible de communiquer avec la base de donn�es");
             }
         }
-        return sites;
+        return voies;
     }
+
 
     
 }

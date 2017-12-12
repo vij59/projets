@@ -8,33 +8,44 @@
 						<li class="active">
 							<a href="/web/">Accueil</a>
 						</li>
-						<li>
-							<a href="/web/sites">Sites</a>
+						
+						<li class="dropdown">
+							 <a href="/web/sites" class="dropdown-toggle" data-toggle="dropdown">Sites<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/web/sites">Liste des sites</a>
+								</li>
+								<li>
+									<a href="/web/ajouterSite">Ajouter un site</a>
+								</li>
+								<li>
+									<a href="#">Modifier un site</a>
+								</li>
+							</ul>
 						</li>
-						<li>
-							<a href="/web/topos">Topos</a>
+						
+						<li class="dropdown">
+							 <a href="/web/topos" class="dropdown-toggle" data-toggle="dropdown">Topos<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/web/topos">Liste des topos</a>
+								</li>
+								<li>
+									<a href="#">Ajouter un topo</a>
+								</li>
+								<li>
+									<a href="#">Réserver topo</a>
+								</li>
+							</ul>
 						</li>
 						<li class="dropdown">
 							 <a href="/web/connexion" class="dropdown-toggle" data-toggle="dropdown">Connexion<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#">Action</a>
+									<a href="/web/connexion">Se connecter</a>
 								</li>
 								<li>
-									<a href="#">Another action</a>
-								</li>
-								<li>
-									<a href="#">Something else here</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									<a href="#">Separated link</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									<a href="#">One more separated link</a>
+									<a href="/web/creerUtilisateur">S'inscrire</a>
 								</li>
 							</ul>
 						</li>

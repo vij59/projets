@@ -1,13 +1,23 @@
 package org.beans;
 
+import java.util.List;
+
 public class Site {
 	
 	private int id;
-    private String nomSite;
+	private String nomSite;
     private String pays;
     private String region;
     private int codePostal;
+    private int nbSecteurs;
+    private List<Secteur> secteurs;
     
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNomSite() {
 		return nomSite;
 	}
@@ -32,5 +42,19 @@ public class Site {
 	public void setCodePostal(int codePostal) {
 		this.codePostal = codePostal;
 	}
-    
+	
+	
+	   public int getNbSecteurs() {
+		return nbSecteurs;
+	}
+	public void setNbSecteurs(int nbSecteurs) {
+		this.nbSecteurs = nbSecteurs;
+	}
+	public List<Secteur> getSecteurs() {
+			return secteurs;
+		}
+		public void setSecteurs(List<Secteur> secteurs) {
+			this.secteurs = secteurs;
+		}
 }
+

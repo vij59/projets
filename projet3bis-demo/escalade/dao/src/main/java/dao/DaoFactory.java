@@ -44,5 +44,10 @@ public class DaoFactory {
     public TopoDao getTopoDao() {
         return new TopoDaoImpl(this);
     }
-    
+    public SecteurDaoImpl getSecteurDao() {
+        return new SecteurDaoImpl(this);
+    }
+    public VoieDaoImpl getVoieDao() {
+        return new VoieDaoImpl(this);
+    }
 }

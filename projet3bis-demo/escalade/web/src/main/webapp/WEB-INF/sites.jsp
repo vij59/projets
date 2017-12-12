@@ -8,32 +8,46 @@
 
 <%@ include file ="pages/navbar.jsp"  %>
 <br/><br/><br/>
-  <c:choose>
-      
-  	  <c:when test="${ !empty form.resultat }"><p><c:out value="Bonjour ${ form.resultat }" /></p></c:when>
-  	  
-      <c:otherwise>
-        <form method="post" action="sites">
-            <label for="nom_site">nom du site : </label>
-            <input type="text" name="nom_site" id="nom_site" /><br/>
-            
-             <label for="pays">pays : </label>
-            <input type="text" name="pays" id="pays" /><br/>
-            
-             <label for="region">region : </label>
-            <input type="text" name="region" id="region" /><br/>
-            
-                  <label for="code_postal">code postal : </label>
-            <input type="text" name="code_postal" id="code_postal" /><br/>
-            
-            <input type="submit" />
-        </form>
-         </c:otherwise>
-     </c:choose> 
-     <ul>
+ 
+     
      <p>Liste des sites</p>
-	    <c:forEach var="site" items="${ sites }">
-	    	<li> <c:out value="${ site.nomSite }" /></li>
-	    </c:forEach>
-	</ul>   
+  
+	 <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							Nom site
+						</th>
+						<th>
+							Pays site
+						</th>
+						<th>
+							Region site
+						</th>
+					</tr>
+				</thead>
+				<c:forEach var="site" items="${ sites }">
+				<tbody>
+					<tr>
+						<td>
+						<c:out value="${ site.id }" />
+							<c:out value="${ site.nomSite }" />
+						</td>
+						<td>
+							<c:out value="${ site.pays }" />
+						</td>
+						<td>
+							<c:out value="${ site.region }" />
+						</td>
+					</tr>
+				</tbody>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+</div>
+	 
  <%@ include file ="pages/footer.jsp"  %>

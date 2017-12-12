@@ -8,29 +8,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.beans.BeanException;
-import org.beans.Site;
+import org.beans.Longueur;
+import org.beans.Voie;
 
-public class SiteDaoImpl  implements SiteDao {
+public class LongueurDaoImpl  implements LongueurDao {
     private DaoFactory daoFactory;
-	private SiteDao siteDao;
+	private LongueurDao longueurDao;
 
-	SiteDaoImpl(DaoFactory daoFactory) {
+	LongueurDaoImpl(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
 
-    public void ajouterSite (Site site) throws DaoException {
+    public void ajouterLongueur (Longueur longueur, Voie voie) throws DaoException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO site(nom_site, pays, region, code_postal) VALUES(?, ?, ?, ?);");
-            preparedStatement.setString(1, site.getNomSite());
-            preparedStatement.setString(2, site.getPays());
-            preparedStatement.setString(3, site.getRegion());
-            preparedStatement.setInt(4, site.getCodePostal());
-
+            preparedStatement = connexion.prepareStatement("INSERT INTO longueur(nom, cotation, id_voie) VALUES(?, ?, ?);");
+            preparedStatement.setString(1, longueur.getNom());
+            preparedStatement.setString(2, longueur.getCotation());
+            preparedStatement.setInt(3, voie.getId());
+            
             preparedStatement.executeUpdate();
             connexion.commit();
         } catch (SQLException e) {
@@ -54,8 +53,8 @@ public class SiteDaoImpl  implements SiteDao {
 
     }
 
-    public List<Site> lister() throws DaoException {
-        List<Site> sites = new ArrayList<Site>();
+    public List<Longueur> lister() throws DaoException {
+        List<Longueur> longueurs = new ArrayList<Longueur>();
         Connection connexion = null;
         Statement statement = null;
         ResultSet resultat = null;
@@ -63,24 +62,21 @@ public class SiteDaoImpl  implements SiteDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id_site,nom_site, pays, region, code_postal FROM site;");
+            resultat = statement.executeQuery("SELECT id_longueur , nom, cotation, id_voie FROM longueur;");
 
             while (resultat.next()) {
-            	int idSite = resultat.getInt("id_site");
-                String nomSite = resultat.getString("nom_site");
-                String pays = resultat.getString("pays");
-                
-                String region = resultat.getString("region");
-                int codePostal = resultat.getInt("code_postal");
+            	int idLongueur = resultat.getInt("id_longueur");
+                String nomLongueur = resultat.getString("nom_longueur");
+                String cotation = resultat.getString("cotation");
+                int idVoie = resultat.getInt("id_voie");
 
-                Site site = new Site();
-                site.setId(idSite);
-                site.setNomSite(nomSite);
-                site.setPays(pays);
-                site.setRegion(region);
-                site.setCodePostal(codePostal);
+                Longueur longueur = new Longueur();
+                longueur.setId(idLongueur);
+                longueur.setNom(nomLongueur);
+                longueur.setCotation(cotation);
+                longueur.setIdVoie(idVoie);
 
-                sites.add(site);
+                longueurs.add(longueur);
             }
         } catch (SQLException e) {
             throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -96,8 +92,9 @@ public class SiteDaoImpl  implements SiteDao {
                 throw new DaoException("Impossible de communiquer avec la base de donn�es");
             }
         }
-        return sites;
+        return longueurs;
     }
+
 
     
 }

@@ -47,6 +47,27 @@
  	<servlet-name>BetaConn</servlet-name>
  	<servlet-class>com.octest.servlets.BetaConn</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>AjouterSite</display-name>
+ 	<servlet-name>AjouterSite</servlet-name>
+ 	<servlet-class>com.octest.servlets.AjouterSite</servlet-class>
+ </servlet>
+  <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>ValiderAjoutSite</display-name>
+ 	<servlet-name>ValiderAjoutSite</servlet-name>
+ 	<servlet-class>com.octest.servlets.ValiderAjoutSite</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>AjouterSecteur</display-name>
+ 	<servlet-name>AjouterSecteur</servlet-name>
+ 	<servlet-class>com.octest.servlets.AjouterSecteur</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -64,6 +85,18 @@
    <servlet-mapping>
    	<servlet-name>BetaConn</servlet-name>
    	<url-pattern>/betaConn</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AjouterSite</servlet-name>
+   	<url-pattern>/ajouterSite</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AjouterSecteur</servlet-name>
+   	<url-pattern>/ajouterSecteur</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>ValiderAjoutSite</servlet-name>
+   	<url-pattern>/validerAjoutSite</url-pattern>
    </servlet-mapping>
   
 
