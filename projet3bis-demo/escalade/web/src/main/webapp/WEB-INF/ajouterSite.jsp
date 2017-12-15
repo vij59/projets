@@ -15,19 +15,15 @@
       <c:otherwise>
         <form method="post" action="ajouterSite">
             <label for="nom_site">nom du site : </label>
-            <input type="text" name="nom_site" id="nom_site" /><br/>
+            <input type="text" name="nom_site" id="nom_site" required/><br/>
             
              <label for="pays">pays : </label>
-            <input type="text" name="pays" id="pays" /><br/>
+            <input type="text" name="pays" id="pays" required/><br/>
             
              <label for="region">region : </label>
-            <input type="text" name="region" id="region" /><br/>
-            
-                  <label for="code_postal">code postal : </label>
-            <input type="text" name="code_postal" id="code_postal" /><br/>
-            
-               <label for="nb_secteurs">Nombre de Secteurs : </label>
-            <input type="number" name="nb_secteurs" id="nb_secteurs" /><br/>
+            <input type="text" name="region" id="region" required/><br/>
+          
+  
             <input type="submit" />
         </form>
          </c:otherwise>
@@ -51,9 +47,7 @@
 						<th>
 							Region site
 						</th>
-						<th>
-							Nombre Secteurs
-						</th>
+						
 					</tr>
 				</thead>
 				<c:forEach var="site" items="${ sites }" >  
@@ -69,9 +63,7 @@
 						<td>
 							<c:out value="${ site.region }" />
 						</td>
-						<td>
-							<c:out value="${ site.nbSecteurs }" />
-						</td>
+					
 						<td>
 							<a href="ajouterSecteur">Ajouter Secteur</a>
 						</td>

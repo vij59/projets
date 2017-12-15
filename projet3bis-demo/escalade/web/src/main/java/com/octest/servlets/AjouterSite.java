@@ -54,19 +54,13 @@ public class AjouterSite extends HttpServlet {
 		site.setNomSite(request.getParameter("nom_site"));
         site.setPays(request.getParameter("pays"));
         site.setRegion(request.getParameter("region"));
-        site.setCodePostal(Integer.parseInt(request.getParameter("code_postal")));
-       // request.setAttribute("siteObjet", site);
-        site.setNbSecteurs(Integer.parseInt(request.getParameter("nb_secteurs")));
+        
+        session.setAttribute("site", site);
         
         List<Site> listeSites = new ArrayList<Site>();
         listeSites.add(site);
         request.setAttribute("sites", listeSites);
-        
         session.setAttribute( "sites", listeSites );
-        Secteur[] secteur = new Secteur[Integer.parseInt(request.getParameter("nb_secteurs"))];
-        int numSecteur = 0;
-        session.setAttribute( "numSecteur", numSecteur );
-        session.setAttribute("tabSecteurs",secteur);
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSite.jsp").forward(request, response);
     }

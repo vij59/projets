@@ -23,10 +23,8 @@ import dao.SecteurDao;
  */
 public class AjouterSecteur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	int i=0;
-
-
-    /**
+	
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public AjouterSecteur() {
@@ -51,47 +49,30 @@ public class AjouterSecteur extends HttpServlet {
 		// Secteur secteur = new Secteur();
 		HttpSession session = request.getSession();
 		
-	/*
-		Secteur[] secteur = new Secteur[Integer.parseInt(request.getParameter("nb_voies"))];
-	for(int i=0; i<n ; i++) {
-		
-			secteur[i] = new Secteur();
-			int id = i;
-			String nom = sc.next();
-			String cotation = sc.next();
-			secteur[i].setId(id);
-			secteur[i].setNom(nom);
-			secteur[i].setCotation(cotation);
-		}
-		*/
-		
-		Secteur[] secteur = (Secteur[]) session.getAttribute("tabSecteurs");
-		int i = (Integer) session.getAttribute("numSecteur");
-		try {
-		secteur[i] = new Secteur();
-		secteur[i].setNom(request.getParameter("nom_secteur"));
-		secteur[i].setCotation(request.getParameter("cotation"));
-		secteur[i].setNbVoies(Integer.parseInt(request.getParameter("nb_voies")));
-		secteur[i].setId(i);
-		
-		i++;
-		}
-		catch (Exception e) { System.out.println("erreur de tableau");}
-		session.setAttribute("numSecteur", i);
-		
-        
-        /*
+		Secteur secteur = new Secteur();
 		secteur.setNom(request.getParameter("nom_secteur"));
-        secteur.setCotation(request.getParameter("cotation"));
-        secteur.setNbVoies(Integer.parseInt(request.getParameter("nb_voies")));
-        */
-        
+		
+		Site site = (Site) session.getAttribute("site");
+		site.addSecteur(secteur);
+int i =0;
        List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-       for(int i1 =0; i1<secteur.length; i1++){
-       listeSecteurs.add(secteur[i1]);
-       }
+      for( Secteur s : site.getSecteurs()) {
+    	  s.setId(i);
+			listeSecteurs.add(s);
+			i++;
+      }
+        
        request.setAttribute("secteurs", listeSecteurs);
        session.setAttribute( "secteurs", listeSecteurs );
+       int j=0;
+       session.setAttribute( "numSecteur", j );
+       Secteur sec = (Secteur) listeSecteurs.get(0);
+		List <Secteur> listeSec = new ArrayList<Secteur>();
+		listeSec.add(sec);
+		 request.setAttribute("sect", listeSec);
+	     session.setAttribute("sect", listeSec);
+	  
+     
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSecteur.jsp").forward(request, response);
     }

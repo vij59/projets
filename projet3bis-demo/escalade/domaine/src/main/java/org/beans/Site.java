@@ -1,5 +1,6 @@
 package org.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Site {
@@ -10,7 +11,7 @@ public class Site {
     private String region;
     private int codePostal;
     private int nbSecteurs;
-    private List<Secteur> secteurs;
+    private  List<Secteur> secteurs = new ArrayList<Secteur>();
     
 	public int getId() {
 		return id;
@@ -53,8 +54,14 @@ public class Site {
 	public List<Secteur> getSecteurs() {
 			return secteurs;
 		}
-		public void setSecteurs(List<Secteur> secteurs) {
-			this.secteurs = secteurs;
+		public void addSecteur(Secteur secteur) {
+			this.secteurs.add(secteur);
+			
+		}
+		@Override
+		public String toString() {
+			return "Site [id=" + id + ", nomSite=" + nomSite + ", pays=" + pays + ", region=" + region + ", codePostal="
+					+ codePostal + ", nbSecteurs=" + nbSecteurs + ", secteurs=" + secteurs + "]";
 		}
 }
 

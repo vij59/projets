@@ -1,5 +1,6 @@
 package org.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Voie {
@@ -8,7 +9,8 @@ public class Voie {
 	private String nom;
 	private String cotation;
 	private int idSecteur;
-	
+	 private  List<Longueur> longueurs = new ArrayList<Longueur>();
+	 
 	public int getId() {
 		return id;
 	}
@@ -34,10 +36,18 @@ public class Voie {
 	public void setIdSecteur(int idSecteur) {
 		this.idSecteur = idSecteur;
 	}
+	
+	public List<Longueur> getLongueurs() {
+		return longueurs;
+	}
+	public void addLongueur(Longueur longueur) {
+		this.longueurs.add(longueur);
+	}
 	@Override
 	public String toString() {
-		return "Voie [id=" + id + ", nom=" + nom + ", cotation=" + cotation
-				+ "]";
+		return "Voie [id=" + id + ", nom=" + nom + ", cotation=" + cotation + ", idSecteur=" + idSecteur
+				+ ", longueurs=" + longueurs + "]";
 	}
+	
 
 }

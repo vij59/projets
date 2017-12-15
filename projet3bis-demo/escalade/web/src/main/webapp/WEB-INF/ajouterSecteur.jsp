@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Sites</title>
+<title>Secteurs</title>
 </head>
 <body>
 
@@ -17,13 +17,7 @@
         <form method="post" action="ajouterSecteur">
         
             <label for="nom_secteur">nom du secteur : </label>
-            <input type="text" name="nom_secteur" id="nom_secteur" /><br/>
-            
-             <label for="cotation">cotation : </label>
-            <input type="text" name="cotation" id="cotation" /><br/>
-            
-             <label for="nb_voies">nombre de voies : </label>
-            <input type="text" name="nb_voies" id="nb_voies" /><br/>
+            <input type="text" name="nom_secteur" id="nom_secteur" required/><br/>
            
             <input type="submit" />
         </form>
@@ -42,36 +36,21 @@
 				<thead>
 					<tr>
 						<th>
-							Nom secteur
-						</th>
-						<th>
-							Cotation secteur
-						</th>
-						<th>
-							Nombre de voies
-						</th>
-						<th>
 							secteur id
+						</th>
+						<th>
+							Nom secteur
 						</th>
 					</tr>
 				</thead>
 				<c:forEach var="secteur" items="${ secteurs }"  >
-				
-				
 				<tbody>
 					<tr>
 						<td>
-						
-							<c:out value="${ secteur.nom }" />
-						</td>
-						<td>
-							<c:out value="${ secteur.cotation }" />
-						</td>
-						<td>
-						<c:out value="${ secteur.nbVoies }" />
-						</td>
-						<td>
 						<c:out value="${ secteur.id }" />
+						</td>
+						<td>
+						<c:out value="${ secteur.nom }" />
 						</td>
 					</tr>
 				</tbody>
@@ -80,20 +59,9 @@
 		</div>
 	</div>
 </div>
-
-<c:forEach begin="1" end="${site.nbSecteurs}" var="i" step="1" varStatus="vs">
-value = <c:out value="${i}"/>
-  nom = <c:out value="${ secteur.nom}"/> : 
-  cotation = <c:out value="${secteur.cotation}"/> : 
-  nbVoies = <c:out value="${ secteur.nbVoies }" />
-  <c:if test="${vs.first}">
-     : Premier element
-  </c:if>
-  <c:if test="${vs.last}">
-     : Dernier element
-  </c:if>
-  <br>
+<a href="ajouterVoie">Ajouter Voies</a>
 </c:forEach>
-</c:forEach>
+<td>
+					
  	 
  <%@ include file ="pages/footer.jsp"  %>

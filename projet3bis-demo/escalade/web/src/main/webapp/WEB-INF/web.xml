@@ -68,6 +68,20 @@
  	<servlet-name>AjouterSecteur</servlet-name>
  	<servlet-class>com.octest.servlets.AjouterSecteur</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>AjouterVoie</display-name>
+ 	<servlet-name>AjouterVoie</servlet-name>
+ 	<servlet-class>com.octest.servlets.AjouterVoie</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>AjouterLongueur</display-name>
+ 	<servlet-name>AjouterLongueur</servlet-name>
+ 	<servlet-class>com.octest.servlets.AjouterLongueur</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -97,6 +111,14 @@
    <servlet-mapping>
    	<servlet-name>ValiderAjoutSite</servlet-name>
    	<url-pattern>/validerAjoutSite</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AjouterVoie</servlet-name>
+   	<url-pattern>/ajouterVoie</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AjouterLongueur</servlet-name>
+   	<url-pattern>/ajouterLongueur</url-pattern>
    </servlet-mapping>
   
 
