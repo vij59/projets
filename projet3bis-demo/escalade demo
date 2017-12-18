@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 9.6.5
 
--- Started on 2017-12-12 11:04:32
+-- Started on 2017-12-18 18:59:49
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -125,7 +125,6 @@ ALTER SEQUENCE noms_id_seq OWNED BY noms.id;
 
 CREATE TABLE secteur (
     nom character varying NOT NULL,
-    cotation character varying,
     id_site bigint,
     id_secteur integer NOT NULL
 );
@@ -163,10 +162,9 @@ ALTER SEQUENCE secteur_id_secteur_seq OWNED BY secteur.id_secteur;
 --
 
 CREATE TABLE site (
-    nom_site character varying NOT NULL,
+    nom character varying NOT NULL,
     pays character varying NOT NULL,
     region character varying NOT NULL,
-    code_postal integer NOT NULL,
     id_site bigint NOT NULL
 );
 
@@ -330,6 +328,14 @@ ALTER TABLE ONLY voie ALTER COLUMN id_voie SET DEFAULT nextval('voie_id_voie_seq
 --
 
 COPY longueur (id_longueur, nom, cotation, id_voie) FROM stdin;
+23	long	7B	10
+24	time	8N	10
+25	L1	7B	11
+26	L2	9Z	11
+27	A1	7B	12
+28	plis	7P	13
+29	popopom	9D	14
+30	l	l	15
 \.
 
 
@@ -339,7 +345,7 @@ COPY longueur (id_longueur, nom, cotation, id_voie) FROM stdin;
 -- Name: longueur_id_longueur_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('longueur_id_longueur_seq', 1, false);
+SELECT pg_catalog.setval('longueur_id_longueur_seq', 30, true);
 
 
 --
@@ -369,7 +375,12 @@ SELECT pg_catalog.setval('noms_id_seq', 72, true);
 -- Data for Name: secteur; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY secteur (nom, cotation, id_site, id_secteur) FROM stdin;
+COPY secteur (nom, id_site, id_secteur) FROM stdin;
+Hector	21	24
+Blow	21	25
+Long 1	22	26
+Long 2	22	27
+sec	23	28
 \.
 
 
@@ -379,7 +390,7 @@ COPY secteur (nom, cotation, id_site, id_secteur) FROM stdin;
 -- Name: secteur_id_secteur_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('secteur_id_secteur_seq', 6, true);
+SELECT pg_catalog.setval('secteur_id_secteur_seq', 28, true);
 
 
 --
@@ -388,16 +399,19 @@ SELECT pg_catalog.setval('secteur_id_secteur_seq', 6, true);
 -- Data for Name: site; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY site (nom_site, pays, region, code_postal, id_site) FROM stdin;
-joe	france	nord	59000	1
-pilgrim	espagne	catalogne	22334	2
-john	France	Nord	59	3
-Cliffangeross	Espagne	Sierra Nevada	88888	4
-Montagne	France	Alpes	69000	5
-Montagne2	France	Nord	59	6
-m2	fr	nord	59	7
-a	b	c	4	8
-fox	france	alpes	11111	9
+COPY site (nom, pays, region, id_site) FROM stdin;
+joe	france	nord	1
+pilgrim	espagne	catalogne	2
+john	France	Nord	3
+Cliffangeross	Espagne	Sierra Nevada	4
+Montagne	France	Alpes	5
+Montagne2	France	Nord	6
+m2	fr	nord	7
+a	b	c	8
+fox	france	alpes	9
+Blow	GB	Midlands	21
+1	France	Sud	22
+s	p	r	23
 \.
 
 
@@ -407,7 +421,7 @@ fox	france	alpes	11111	9
 -- Name: site_id_site_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('site_id_site_seq', 9, true);
+SELECT pg_catalog.setval('site_id_site_seq', 23, true);
 
 
 --
@@ -437,6 +451,12 @@ SELECT pg_catalog.setval('topo_id_topo_seq', 1, true);
 --
 
 COPY voie (id_voie, nom, cotation, id_secteur) FROM stdin;
+10	Way1	1B	24
+11	Way 2 	2C	24
+12	ing	7O	25
+13	v	v	26
+14	v2	5J	27
+15	v	v	28
 \.
 
 
@@ -446,7 +466,7 @@ COPY voie (id_voie, nom, cotation, id_secteur) FROM stdin;
 -- Name: voie_id_voie_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('voie_id_voie_seq', 1, true);
+SELECT pg_catalog.setval('voie_id_voie_seq', 15, true);
 
 
 --
@@ -513,21 +533,21 @@ ALTER TABLE ONLY voie
 
 
 --
--- TOC entry 2055 (class 2606 OID 25059)
+-- TOC entry 2055 (class 2606 OID 25245)
 -- Name: secteur id_site; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY secteur
-    ADD CONSTRAINT id_site FOREIGN KEY (id_site) REFERENCES site(id_site);
+    ADD CONSTRAINT id_site FOREIGN KEY (id_site) REFERENCES site(id_site) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- TOC entry 2057 (class 2606 OID 25240)
+-- TOC entry 2057 (class 2606 OID 25250)
 -- Name: longueur id_voie; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY longueur
-    ADD CONSTRAINT id_voie FOREIGN KEY (id_voie) REFERENCES voie(id_voie);
+    ADD CONSTRAINT id_voie FOREIGN KEY (id_voie) REFERENCES voie(id_voie) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -539,7 +559,7 @@ ALTER TABLE ONLY topo
     ADD CONSTRAINT site_topo_fk FOREIGN KEY (id_site) REFERENCES site(id_site);
 
 
--- Completed on 2017-12-12 11:04:34
+-- Completed on 2017-12-18 18:59:50
 
 --
 -- PostgreSQL database dump complete
