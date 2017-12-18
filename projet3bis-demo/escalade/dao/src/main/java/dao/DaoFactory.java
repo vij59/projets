@@ -50,4 +50,7 @@ public class DaoFactory {
     public VoieDaoImpl getVoieDao() {
         return new VoieDaoImpl(this);
     }
+    public LongueurDaoImpl getLongueurDao() {
+        return new LongueurDaoImpl(this);
+    }
 }

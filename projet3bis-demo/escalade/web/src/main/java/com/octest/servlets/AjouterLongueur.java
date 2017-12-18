@@ -24,99 +24,115 @@ import dao.LongueurDao;
  */
 public class AjouterLongueur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjouterLongueur() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AjouterLongueur() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
-    }
+
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
+
 		Longueur longueur = new Longueur();
 		longueur.setNom(request.getParameter("nom_longueur"));
 		longueur.setCotation(request.getParameter("cotation"));
 		int numVoie= (Integer) session.getAttribute("numVoie");
 		int numSecteur= (Integer) session.getAttribute("numSecteur");
-		
-		List listeSecteurs  =  (List) session.getAttribute("secteurs");
+
+		/*	List listeSecteurs  =  (List) session.getAttribute("secteurs");
 		  System.out.println("listeSecteurs : "+listeSecteurs);
 		Secteur sect = (Secteur) listeSecteurs.get(numSecteur);
 		  System.out.println("sect : "+sect);
 		List <Secteur>listeSect = new ArrayList<Secteur>();
 		listeSect.add(sect);
-		
-	     System.out.println("numSecteur Longueur" +numSecteur);
+		 */
+
+		System.out.println("numSecteur Longueur" +numSecteur);
 		System.out.println("numVoie Longueur" +numVoie);
-		
+
 		// List listeVoies  =  (List) session.getAttribute("voies");
+		List listeSecteurs  =  (List) session.getAttribute("secteurs");
+		Secteur sect = (Secteur) listeSecteurs.get(numSecteur);
 		List listeVoies = sect.getVoies();
-		Voie voie = new Voie();
-		voie = (Voie) listeVoies.get(numVoie);
-		voie.addLongueur(longueur);
-		
+
+
+		Voie voie = (Voie) listeVoies.get(numVoie);
+
+		try {
+			if(request.getParameter("nom_longueur").isEmpty()){ System.out.println("longueur vide");}
+			else {
+				voie.addLongueur(longueur);
+			}
+		}
+		catch (Exception e) {
+			System.out.println("catch erreur longueur");
+		}
+
+
 		List<Longueur> listeLongueurs = new ArrayList<Longueur>();
 		int i =0;
-		 for( Longueur l : voie.getLongueurs()) {
-			 	l.setId(i);
-			 	l.setIdVoie(numVoie);
-				listeLongueurs.add(l);
-				i++;
-	      }
-		
-			
-   
-    //  j++;
-		try {
-		if(Integer.parseInt(request.getParameter("fini"))==1) {
-			numVoie++;
-			if(numVoie>=listeVoies.size()-1) {
-				if(numSecteur<=listeSecteurs.size()-1){
-				numSecteur++;
-				session.setAttribute( "numSecteur", numSecteur );
-				request.setAttribute( "numSecteur", numSecteur );
-				}
-				else {
-					
-					 this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
-				}
-				
-			}
-					listeLongueurs.clear();
+		for( Longueur l : voie.getLongueurs()) {
+			l.setId(i);
+			l.setIdVoie(numVoie);
+			listeLongueurs.add(l);
+			i++;
 		}
+
+		boolean fini = false;
+		try {
+			if(Integer.parseInt(request.getParameter("fini"))==1) {
+				numVoie++;
+				if(numVoie > listeVoies.size()-1) {
+					if(numSecteur < listeSecteurs.size()-1){
+						numSecteur++;
+						numVoie =0;
+
+					}
+					else {
+						fini = true;
+						numVoie =0;
+						numSecteur=0;
+						listeLongueurs.clear();
+						//this.getServletContext().getRequestDispatcher("/WEB-INF/recapSites.jsp").forward(request, response);
+					}
+
+				}
+			}
 		}
 		catch (Exception e){
-			System.out.println("erreurLongueur");
+			System.out.println("erreurLongueur :" + e.getMessage());
 		}
-		
-		if(numVoie>=listeVoies.size()){ 
-			 this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
-		}
-		else {
+
+		session.setAttribute( "numSecteur", numSecteur );
+		request.setAttribute( "numSecteur", numSecteur );
+
 		session.setAttribute( "numVoie", numVoie );
 		request.setAttribute( "numVoie", numVoie );
-		request.setAttribute("longueurs", listeLongueurs);
-		session.setAttribute( "longueurs", listeLongueurs );
-		request.setAttribute("sec", listeSect);
-	     session.setAttribute("sec", listeSect);
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
+		session.setAttribute( "longueurs", listeLongueurs );
+		request.setAttribute( "longueurs", listeLongueurs );
+
+		if(fini){
+			this.getServletContext().getRequestDispatcher("/WEB-INF/recapSite.jsp").forward(request, response);
 		}
-    }
+		else {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
+		}
+	}
 }

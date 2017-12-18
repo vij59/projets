@@ -25,10 +25,10 @@ public class SecteurDaoImpl  implements SecteurDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO secteur(nom, cotation, id_site) VALUES(?, ?, ?);");
+            preparedStatement = connexion.prepareStatement("INSERT INTO secteur(nom, id_site) VALUES(?, ?);");
             preparedStatement.setString(1, secteur.getNom());
-            preparedStatement.setString(2, secteur.getCotation());
-            preparedStatement.setInt(3, site.getId());
+           
+            preparedStatement.setInt(2, site.getId());
             
             preparedStatement.executeUpdate();
             connexion.commit();
@@ -62,18 +62,18 @@ public class SecteurDaoImpl  implements SecteurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT id_secteur , nom, cotation, id_site FROM secteur;");
+            resultat = statement.executeQuery("SELECT id_secteur , nom, id_site FROM secteur;");
 
             while (resultat.next()) {
             	int idSecteur = resultat.getInt("id_secteur");
                 String nomSecteur = resultat.getString("nom");
-                String cotation = resultat.getString("cotation");
+            
                 int idSite = resultat.getInt("id_site");
 
                 Secteur secteur = new Secteur();
                 secteur.setId(idSecteur);
                 secteur.setNom(nomSecteur);
-                secteur.setCotation(cotation);
+                
                 secteur.setIdSite(idSite);
 
                 secteurs.add(secteur);
@@ -95,6 +95,43 @@ public class SecteurDaoImpl  implements SecteurDao {
         return secteurs;
     }
 
+    public int recupererIdSecteur(Secteur secteur, Site site) throws DaoException {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		int idSecteur = 0;
+		int idSite = site.getId();
 
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT id_secteur,id_site FROM secteur;");
+
+			while (resultat.next()) {
+				
+				if(idSite == resultat.getInt("id_site")) 
+				{
+				 idSecteur = resultat.getInt("id_secteur");
+				 idSite = resultat.getInt("id_site");
+
+				}
+				
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Impossible de communiquer avec la base de donn�es");
+		} catch (Exception e) {
+			throw new DaoException("Les donn�es de la base sont invalides");
+		}
+		finally {
+			try {
+				if (connexion != null) {
+					connexion.close();  
+				}
+			} catch (SQLException e) {
+				throw new DaoException("Impossible de communiquer avec la base de donn�es");
+			}
+		}
+		return idSecteur;
+	}
     
 }

@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.beans.BeanException;
 import org.beans.Utilisateur;
@@ -47,6 +48,7 @@ public class Sites extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+       
         this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
     }
 
@@ -54,19 +56,9 @@ public class Sites extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Site site = new Site();
-        
-		site.setNomSite(request.getParameter("nom_site"));
-        site.setPays(request.getParameter("pays"));
-        site.setRegion(request.getParameter("region"));
-        site.setCodePostal(Integer.parseInt(request.getParameter("code_postal")));
-        
-        try {
-        	siteDao.ajouterSite(site);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		HttpSession session   = request.getSession();
+		 session.invalidate();
+		
         
         try {
 			request.setAttribute("sites", siteDao.lister());
@@ -74,7 +66,7 @@ public class Sites extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+       
         this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
     }
 }

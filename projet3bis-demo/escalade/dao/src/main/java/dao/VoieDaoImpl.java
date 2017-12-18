@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.beans.Voie;
 import org.beans.Secteur;
+import org.beans.Site;
 
 public class VoieDaoImpl  implements VoieDao {
     private DaoFactory daoFactory;
@@ -25,7 +26,7 @@ public class VoieDaoImpl  implements VoieDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO voie(nom_voie, cotation, id_secteur) VALUES(?, ?, ?);");
+            preparedStatement = connexion.prepareStatement("INSERT INTO voie(nom, cotation, id_secteur) VALUES(?, ?, ?);");
             preparedStatement.setString(1, voie.getNom());
             preparedStatement.setString(2, voie.getCotation());
             preparedStatement.setInt(3, secteur.getId());
@@ -66,7 +67,7 @@ public class VoieDaoImpl  implements VoieDao {
 
             while (resultat.next()) {
             	int idVoie = resultat.getInt("id_voie");
-                String nomVoie = resultat.getString("nom_voie");
+                String nomVoie = resultat.getString("nom");
                 String cotation = resultat.getString("cotation");
                 int idSecteur = resultat.getInt("id_secteur");
 
@@ -95,6 +96,44 @@ public class VoieDaoImpl  implements VoieDao {
         return voies;
     }
 
+    public int recupererIdVoie(Voie voie, Secteur secteur) throws DaoException {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		int idVoie = 0;
+		int idSecteur = secteur.getId();
+
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT id_voie,id_secteur FROM voie;");
+
+			while (resultat.next()) {
+				
+				if(idSecteur == resultat.getInt("id_secteur")) 
+				{
+				 idVoie = resultat.getInt("id_voie");
+				 idSecteur = resultat.getInt("id_secteur");
+
+				}
+				
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Impossible de communiquer avec la base de donn�es");
+		} catch (Exception e) {
+			throw new DaoException("Les donn�es de la base sont invalides");
+		}
+		finally {
+			try {
+				if (connexion != null) {
+					connexion.close();  
+				}
+			} catch (SQLException e) {
+				throw new DaoException("Impossible de communiquer avec la base de donn�es");
+			}
+		}
+		return idVoie;
+	}
 
     
 }

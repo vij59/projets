@@ -25,113 +25,116 @@ public class AjouterVoie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List <Voie> liste2Voies = new ArrayList<Voie>();
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AjouterVoie() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AjouterVoie() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterVoie.jsp").forward(request, response);
-    }
+
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterVoie.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-	
-		
+
+
 		Voie voie = new Voie();
 		voie.setNom(request.getParameter("nom_voie"));
 		voie.setCotation(request.getParameter("cotation"));
 		int j= (Integer) session.getAttribute("numSecteur");
-		
+
 		System.out.println(j);
-		
+
 		List listeSecteurs  =  (List) session.getAttribute("secteurs");
 		Secteur secteur = new Secteur();
 		secteur = (Secteur) listeSecteurs.get(j);
 		try {
-		if(request.getParameter("nom_voie").isEmpty()){ System.out.println("vide");}
-		else {
-			secteur.addVoie(voie);
-			liste2Voies.add(voie);
+			if(request.getParameter("nom_voie").isEmpty())
+			{ 
+				System.out.println("vide");
+			}
+			else {
+				secteur.addVoie(voie);
+				liste2Voies.add(voie);
 			}
 		}
 		catch (Exception e) {
 			System.out.println("catch");
 		}
-		
-		
+
+
 		List<Voie> listeVoies = new ArrayList<Voie>();
 		int i =0;
-		 for( Voie v : secteur.getVoies()) {
-			 	v.setId(i);
-			 	v.setIdSecteur(j);
-				listeVoies.add(v);
-				i++;
-	      }
-		 
-		try {
-		if((Integer.parseInt(request.getParameter("fini"))==1)&&(j<listeSecteurs.size())) {
-			j++;
-			
-			List <Secteur>listeSec = new ArrayList<Secteur>();
-			if (j<listeSecteurs.size()){
-					Secteur sec = (Secteur) listeSecteurs.get(j);
-			listeSec.add(sec);
-			 request.setAttribute("sect", listeSec);
-		     session.setAttribute("sect", listeSec);
-			}
-			 
-			     listeVoies.clear();
+		for( Voie v : secteur.getVoies()) {
+			v.setId(i);
+			v.setIdSecteur(j);
+			listeVoies.add(v);
+			i++;
 		}
+
+		try {
+			if((Integer.parseInt(request.getParameter("fini"))==1)&&(j<listeSecteurs.size())) {
+				j++;
+
+				List <Secteur>listeSec = new ArrayList<Secteur>();
+				if (j<listeSecteurs.size()){
+					Secteur sec = (Secteur) listeSecteurs.get(j);
+					listeSec.add(sec);
+					request.setAttribute("sect", listeSec);
+					session.setAttribute("sect", listeSec);
+				}
+
+				listeVoies.clear();
+			}
 		}
 		catch (Exception e){
 			System.out.println("erreur");
 		}
-		
-		
+
+
 		if(j>=listeSecteurs.size())
 		{ 
-			 
-			 j=0;
-			 session.setAttribute("numVoie", j);
-			 session.setAttribute( "numSecteur", j );
-			 voie =  liste2Voies.get(0);
-				listeVoies.add(voie);
-			
-				Secteur sect = (Secteur) listeSecteurs.get(j);
-				List <Secteur>listeSect = new ArrayList<Secteur>();
-				listeSect.add(sect);
-				
-				request.setAttribute("sec", listeSect);
-			     session.setAttribute("sec", listeSect);
-				 
-			     System.out.println(listeVoies);
-			     
-			     request.setAttribute("listeVoies", liste2Voies);
-			     session.setAttribute("listeVoies", liste2Voies);
-			     request.setAttribute("voies", listeVoies);
-			     session.setAttribute("voies", listeVoies);
-			     this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
+
+			j=0;
+			session.setAttribute("numVoie", j);
+			session.setAttribute( "numSecteur", j );
+			voie =  liste2Voies.get(0);
+			listeVoies.add(voie);
+
+			Secteur sect = (Secteur) listeSecteurs.get(j);
+			List <Secteur>listeSect = new ArrayList<Secteur>();
+			listeSect.add(sect);
+
+			request.setAttribute("sec", listeSect);
+			session.setAttribute("sec", listeSect);
+
+			System.out.println(listeVoies);
+
+			request.setAttribute("listeVoies", liste2Voies);
+			session.setAttribute("listeVoies", liste2Voies);
+			request.setAttribute("voies", listeVoies);
+			session.setAttribute("voies", listeVoies);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
 		}
 		else {
-		session.setAttribute( "numSecteur", j );
-		request.setAttribute( "numSecteur", j );
-		request.setAttribute("voies", listeVoies);
-		session.setAttribute( "voies", listeVoies );
+			session.setAttribute( "numSecteur", j );
+			request.setAttribute( "numSecteur", j );
+			request.setAttribute("voies", listeVoies);
+			session.setAttribute( "voies", listeVoies );
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterVoie.jsp").forward(request, response);
-			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterVoie.jsp").forward(request, response);
+
 		}
-    }
+	}
 }

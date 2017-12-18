@@ -9,14 +9,14 @@
 <%@ include file ="pages/navbar.jsp"  %>
 <br/><br/><br/>
      
-     <c:forEach var="site" items="${ sites }" >  
+    
     <h2>Site : <c:out value="${ site.nomSite }" /> </h2>
-     </c:forEach>
-     <c:forEach var="secteur" items="${ sec }" >  
-    <h3>secteur : <c:out value="${ secteur.nom }" /> </h3>
+ 
+     
+    <h3>secteur : <c:out value="${secteurs[numSecteur].nom}" /> </h3>
       
-     <c:forEach var="voie" items="${ voies }" >  
-    <h4>voie : <c:out value="${ voie.nom }" /> </h4>
+    
+    <h4>voie : <c:out value="${ secteurs[numSecteur].voies[numVoie].nom }" /> </h4>
      
       <c:choose>
       
@@ -56,7 +56,7 @@
 						</th>
 					</tr>
 				</thead>
-				<c:forEach var="longueur" items="${ longueurs }"  >
+				<c:forEach var="longueur" items="${ secteurs[numSecteur].voies[numVoie].longueurs }"  >
 				<tbody>
 					<tr>
 						<td>
@@ -75,8 +75,7 @@
 		</div>
 	</div>
 </div>
-</c:forEach>
-</c:forEach>
+
 <form method="post" action="ajouterLongueur">
 <input type="text" hidden value="1" id="fini" name="fini">
 <input type="submit" value="passer à la voie suivante">

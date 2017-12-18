@@ -82,6 +82,13 @@
  	<servlet-name>AjouterLongueur</servlet-name>
  	<servlet-class>com.octest.servlets.AjouterLongueur</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>RecapSite</display-name>
+ 	<servlet-name>RecapSite</servlet-name>
+ 	<servlet-class>com.octest.servlets.RecapSite</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -119,6 +126,10 @@
    <servlet-mapping>
    	<servlet-name>AjouterLongueur</servlet-name>
    	<url-pattern>/ajouterLongueur</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>RecapSite</servlet-name>
+   	<url-pattern>/recapSite</url-pattern>
    </servlet-mapping>
   
 
