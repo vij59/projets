@@ -1,4 +1,5 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
+<%@ include file="pages/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -8,23 +9,35 @@
         <link type="text/css" rel="stylesheet" href="form.css" />
     </head>
     <body>
+    
+    <%@ include file="pages/navbar.jsp"%>
+	<br />
+	<br />
+	<br />
+	
+	
+	<c:choose>
+			<c:when test="${sessionUtilisateur.role != 1}">
+										
         <form method="post" action="betaConn">
             <fieldset>
                 <legend>Connexion</legend>
                 <p>Vous pouvez vous connecter via ce formulaire.</p>
 
                 <label for="mail">Adresse email <span class="requis">*</span></label>
-                <input type="text" id="mail" name="mail" value="<c:out value="${utilisateur.mail}"/>" size="20" maxlength="60" />
+                <input type="text" id="mail" name="mail" value="<c:out value="${utilisateur.mail}"/>" size="20" maxlength="60" required/>
           		 <span class="erreur">${errorMail}</span><br/>
                 
 
                 <label for="mdp">Mot de passe <span class="requis">*</span></label>
-                <input type="text" id="mdp" name="mdp" value="" size="20" maxlength="20" />
+                <input type="text" id="mdp" name="mdp" value="" size="20" maxlength="20" required />
                <span class="erreur">${ errorMdp }</span>
 
 				<br/>
                 <input type="submit"  />
                 
+          </c:when>
+          <c:otherwise>
                 
                 <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
                 
@@ -37,6 +50,10 @@
             </fieldset>
         </form>
         
+        </c:otherwise>
+        
+        </c:choose>
+        
          <ul>
 	    <c:forEach var="utilisateur" items="${ utilisateurs }">
 	    	<li>Hello <c:out value="${ utilisateur.mail }" /></li>
@@ -44,4 +61,5 @@
 	</ul>  
         
     </body>
+    <%@ include file="pages/footer.jsp"%>
 </html>

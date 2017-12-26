@@ -26,7 +26,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = connexion.prepareStatement("INSERT INTO noms(nom, prenom, mail, mdp) VALUES(?, ?, ?, ?);");
+            preparedStatement = connexion.prepareStatement("INSERT INTO utilisateur(nom, prenom, mail, mdp) VALUES(?, ?, ?, ?);");
             preparedStatement.setString(1, utilisateur.getNom());
             preparedStatement.setString(2, utilisateur.getPrenom());
             preparedStatement.setString(3, utilisateur.getMail());
@@ -64,9 +64,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT nom, prenom, mail, mdp FROM noms;");
+            resultat = statement.executeQuery("SELECT id, nom, prenom, mail, mdp FROM utilisateur;");
 
             while (resultat.next()) {
+            	 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
                 String prenom = resultat.getString("prenom");
                 
@@ -74,6 +75,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
                 String mdp = resultat.getString("mdp");
 
                 Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setId(id);
                 utilisateur.setNom(nom);
                 utilisateur.setPrenom(prenom);
                 utilisateur.setMail(mail);
@@ -108,7 +110,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT mail FROM noms;");
+            resultat = statement.executeQuery("SELECT mail FROM utilisateur;");
 
             while (resultat.next()) {
                
@@ -154,7 +156,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         try {
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT  mdp FROM noms where mail='"+mail+"';");
+            resultat = statement.executeQuery("SELECT  mdp FROM utilisateur where mail='"+mail+"';");
 
             while (resultat.next()) {
                

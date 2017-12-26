@@ -89,13 +89,13 @@ public class RecapSite extends HttpServlet {
 		System.out.println("\n==> Liste des secteurs..");
 
 
-		Iterator<Secteur> iterSecteur = listeSecteurs.iterator(); 
-		while (iterSecteur.hasNext()) 
+		//Iterator<Secteur> iterSecteur = listeSecteurs.iterator(); 
+		for(Secteur secteur : listeSecteurs)
 		{ 
-			Secteur secteur = iterSecteur.next(); // quel intérêt de récupèrer la valeur si tu t'en sers pas ??? 
+			//Secteur secteur = iterSecteur.next(); //  
 			//System.out.println(secteur.getNom());
 			 try {
-				secteurDao.ajouterSecteur ( secteur,  site);
+				secteurDao.ajouterSecteur ( secteur,  site); // TODO : idsite plutot que site
 				
 			} catch (DaoException e) {
 				// TODO Auto-generated catch block

@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="pages/header.jsp"%>
 <html>
 <head>
@@ -51,7 +52,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>voie id</th>
+							<th>Voie n°</th>
 							<th>Nom voie</th>
 							<th>Cotation voie</th>
 						</tr>
@@ -59,7 +60,7 @@
 					<c:forEach var="voie" items="${ voies }">
 						<tbody>
 							<tr>
-								<td><c:out value="${ voie.id }" /></td>
+								<td><c:out value="${ voie.id + 1}" /></td>
 								<td><c:out value="${ voie.nom }" /></td>
 								<td><c:out value="${ voie.cotation }" /></td>
 							</tr>

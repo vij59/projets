@@ -11,6 +11,7 @@ import org.beans.Topo;
 
 import dao.DaoException;
 import dao.DaoFactory;
+import dao.SiteDao;
 import dao.TopoDao;
 
 
@@ -20,60 +21,61 @@ import dao.TopoDao;
 public class Topos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TopoDao topoDao;
+	private SiteDao siteDao;
 
-    public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        this.topoDao = daoFactory.getTopoDao();
-    }
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Topos() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public void init() throws ServletException {
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		this.topoDao = daoFactory.getTopoDao();
+		 this.siteDao = daoFactory.getSiteDao();
+	}
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Topos() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  
-        try {
+		
+		 try {
+				request.setAttribute("sites", siteDao.lister());
+			} catch (DaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
+		try {
 			request.setAttribute("topos", topoDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        this.getServletContext().getRequestDispatcher("/WEB-INF/topos.jsp").forward(request, response);
-    }
+		this.getServletContext().getRequestDispatcher("/WEB-INF/topos.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Topo topo = new Topo();
-        
-	
-		 topo.setNomTopo(request.getParameter("nom_topo"));
 		
-        topo.setFichier(request.getParameter("fichier"));
-        
-        try {
-        	topoDao.ajouterTopo(topo);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        	
-        try {
+
+		 try {
+				request.setAttribute("sites", siteDao.lister());
+			} catch (DaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		try {
 			request.setAttribute("topos", topoDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/topos.jsp").forward(request, response);
-    }
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/topos.jsp").forward(request, response);
+	}
 }

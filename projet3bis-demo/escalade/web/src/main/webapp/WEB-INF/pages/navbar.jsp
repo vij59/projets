@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -31,10 +32,10 @@
 									<a href="/web/topos">Liste des topos</a>
 								</li>
 								<li>
-									<a href="#">Ajouter un topo</a>
+									<a href="/web/ajouterTopo">Ajouter un topo</a>
 								</li>
 								<li>
-									<a href="#">RÈserver topo</a>
+									<a href="/web/mesReservations">Mes r√©servations</a>
 								</li>
 							</ul>
 						</li>
@@ -42,7 +43,7 @@
 							 <a href="/web/connexion" class="dropdown-toggle" data-toggle="dropdown">Connexion<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="/web/connexion">Se connecter</a>
+									<a href="/web/betaConn">Se connecter</a>
 								</li>
 								<li>
 									<a href="/web/creerUtilisateur">S'inscrire</a>
@@ -62,7 +63,7 @@
 						</button>
 					</form>
 						<li>
-							<a href="#">Link</a>
+							<a href="/web/recherche">Recherche</a>
 						</li>
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>

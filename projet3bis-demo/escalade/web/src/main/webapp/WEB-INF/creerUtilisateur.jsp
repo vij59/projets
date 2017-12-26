@@ -1,8 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file ="pages/header.jsp"  %>
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Créer utilisateur</title>
+<title>CrÃ©er utilisateur</title>
 </head>
 <body>
 

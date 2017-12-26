@@ -89,6 +89,41 @@
  	<servlet-name>RecapSite</servlet-name>
  	<servlet-class>com.octest.servlets.RecapSite</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>AjouterTopo</display-name>
+ 	<servlet-name>AjouterTopo</servlet-name>
+ 	<servlet-class>com.octest.servlets.AjouterTopo</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>ReserverTopo</display-name>
+ 	<servlet-name>ReserverTopo</servlet-name>
+ 	<servlet-class>com.octest.servlets.ReserverTopo</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>MesReservations</display-name>
+ 	<servlet-name>MesReservations</servlet-name>
+ 	<servlet-class>com.octest.servlets.MesReservations</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>Recherche</display-name>
+ 	<servlet-name>Recherche</servlet-name>
+ 	<servlet-class>com.octest.servlets.Recherche</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>DetailsSite</display-name>
+ 	<servlet-name>DetailsSite</servlet-name>
+ 	<servlet-class>com.octest.servlets.DetailsSite</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -131,12 +166,35 @@
    	<servlet-name>RecapSite</servlet-name>
    	<url-pattern>/recapSite</url-pattern>
    </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>AjouterTopo</servlet-name>
+   	<url-pattern>/ajouterTopo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>ReserverTopo</servlet-name>
+   	<url-pattern>/reserverTopo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>MesReservations</servlet-name>
+   	<url-pattern>/mesReservations</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>Recherche</servlet-name>
+   	<url-pattern>/recherche</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>DetailsSite</servlet-name>
+   	<url-pattern>/detailsSite</url-pattern>
+   </servlet-mapping>
   
 
  <jsp-config>
     <jsp-property-group>
       <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
       <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
     </jsp-property-group>
   </jsp-config>
+  
+  
 </web-app>

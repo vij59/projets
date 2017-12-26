@@ -27,8 +27,8 @@ public class LongueurDaoImpl  implements LongueurDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = connexion.prepareStatement("INSERT INTO longueur(nom, cotation, id_voie) VALUES(?, ?, ?);");
-			preparedStatement.setString(1, longueur.getNom());
-			preparedStatement.setString(2, longueur.getCotation());
+			preparedStatement.setString(1, longueur.getNom().toUpperCase());
+			preparedStatement.setString(2, longueur.getCotation().toUpperCase());
 			preparedStatement.setInt(3, voie.getId());
 
 			preparedStatement.executeUpdate();

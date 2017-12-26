@@ -1,7 +1,8 @@
 <%@ include file="pages/header.jsp"%>
+<%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>Sites</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
 		<p>
 			Site
 			<c:out value="${ site.nomSite}" />
-			ajouté avec succès
+			ajoutÃ© avec succÃ¨s
 		</p>
 		<form action="sites" method="post">
 		<input type="submit" value="Voir Liste des sites">

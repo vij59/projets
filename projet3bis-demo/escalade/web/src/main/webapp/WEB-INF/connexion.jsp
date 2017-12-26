@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file ="pages/header.jsp"  %>
 <html>
 <head>
@@ -51,10 +52,10 @@
 			</form>
 			 <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
                 
-                <%-- Vérification de la présence d'un objet utilisateur en session --%>
+                <%-- VÃ©rification de la prÃ©sence d'un objet utilisateur en session --%>
                 <c:if test="${!empty sessionScope.sessionUtilisateur}">
                     <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                    <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionUtilisateur.mail}</p>
+                    <p class="succes">Vous Ãªtes connectÃ©(e) avec l'adresse : ${sessionScope.sessionUtilisateur.mail}</p>
                 </c:if>
 		</div>
 	</div>

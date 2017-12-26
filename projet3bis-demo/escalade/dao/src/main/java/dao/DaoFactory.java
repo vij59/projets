@@ -53,4 +53,7 @@ public class DaoFactory {
     public LongueurDaoImpl getLongueurDao() {
         return new LongueurDaoImpl(this);
     }
+    public ReservationDaoImpl getReservationDao() {
+        return new ReservationDaoImpl(this);
+    }
 }

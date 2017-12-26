@@ -1,10 +1,22 @@
 package org.beans;
 
+import java.io.File;
+
 public class Topo {
 	private int idTopo;
 	private int idSite;
 	private String nomTopo;
 	private String fichier;
+	private boolean disponible;
+	
+	
+	
+	public String getFichier() {
+		return fichier;
+	}
+	public void setFichier(String fichier) {
+		this.fichier = fichier;
+	}
 	public int getIdTopo() {
 		return idTopo;
 	}
@@ -23,11 +35,13 @@ public class Topo {
 	public void setNomTopo(String nomTopo) {
 		this.nomTopo = nomTopo;
 	}
-	public String getFichier() {
-		return fichier;
+	
+	public boolean isDisponible() {
+		return disponible;
 	}
-	public void setFichier(String fichier) {
-		this.fichier = fichier;
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
+	
 	
 }

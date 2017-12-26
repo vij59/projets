@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file ="pages/header.jsp"  %>
 <html>
 <head>
@@ -46,7 +47,7 @@
 				<thead>
 					<tr>
 						<th>
-							longueur id
+							Longueur n°
 						</th>
 						<th>
 							Nom longueur
@@ -60,7 +61,7 @@
 				<tbody>
 					<tr>
 						<td>
-						<c:out value="${ longueur.id }" />
+						<c:out value="${ longueur.id + 1}" />
 						</td>
 						<td>
 						<c:out value="${ longueur.nom }" />
@@ -78,7 +79,7 @@
 
 <form method="post" action="ajouterLongueur">
 <input type="text" hidden value="1" id="fini" name="fini">
-<input type="submit" value="passer � la voie suivante">
+<input type="submit" value="passer à la voie suivante">
 </form>
  	 
  <%@ include file ="pages/footer.jsp"  %>

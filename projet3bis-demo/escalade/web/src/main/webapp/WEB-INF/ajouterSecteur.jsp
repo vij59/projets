@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="pages/header.jsp"%>
 <html>
 <head>
@@ -40,14 +41,14 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>secteur id</th>
+							<th>secteur n°</th>
 							<th>Nom secteur</th>
 						</tr>
 					</thead>
 					<c:forEach var="secteur" items="${ secteurs }">
 						<tbody>
 							<tr>
-								<td><c:out value="${ secteur.id }" /></td>
+								<td><c:out value="${ secteur.id + 1}" /></td>
 								<td><c:out value="${ secteur.nom }" /></td>
 							</tr>
 						</tbody>

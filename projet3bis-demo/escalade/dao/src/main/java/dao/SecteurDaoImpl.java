@@ -26,7 +26,7 @@ public class SecteurDaoImpl  implements SecteurDao {
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement("INSERT INTO secteur(nom, id_site) VALUES(?, ?);");
-            preparedStatement.setString(1, secteur.getNom());
+            preparedStatement.setString(1, secteur.getNom().toUpperCase());
            
             preparedStatement.setInt(2, site.getId());
             

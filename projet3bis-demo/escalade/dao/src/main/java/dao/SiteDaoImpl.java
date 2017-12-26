@@ -26,9 +26,9 @@ public class SiteDaoImpl  implements SiteDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = connexion.prepareStatement("INSERT INTO site(nom, pays, region) VALUES(?, ?, ?);");
-			preparedStatement.setString(1, site.getNomSite());
-			preparedStatement.setString(2, site.getPays());
-			preparedStatement.setString(3, site.getRegion());
+			preparedStatement.setString(1, site.getNomSite().toUpperCase());
+			preparedStatement.setString(2, site.getPays().toUpperCase());
+			preparedStatement.setString(3, site.getRegion().toUpperCase());
 
 
 			preparedStatement.executeUpdate();

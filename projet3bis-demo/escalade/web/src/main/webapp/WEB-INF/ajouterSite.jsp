@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="pages/header.jsp"%>
 <html>
 <head>
@@ -10,15 +11,11 @@
 	<br />
 	<br />
 	<br />
+	
 	<c:choose>
-
-		<c:when test="${ !empty form.resultat }">
-			<p>
-				<c:out value="Bonjour ${ form.resultat }" />
-			</p>
-		</c:when>
-
-		<c:otherwise>
+			<c:when test="${sessionUtilisateur.role == 1}">
+	
+	
 			<form method="post" action="ajouterSite">
 				<label for="nom_site">nom du site : </label> 
 				<input type="text" name="nom_site" id="nom_site" required /><br /> 
@@ -28,8 +25,7 @@
 				<input type="text" name="region" id="region" required /><br /> 
 				<input type="submit" />
 			</form>
-		</c:otherwise>
-	</c:choose>
+	
 
 
 	<p>Liste des sites</p>
@@ -64,6 +60,13 @@
 			</div>
 		</div>
 	</div>
+	 </c:when>
+	  <c:otherwise>
+          <a href="betaConn">Connectez-vous d'abord</a>
+           </c:otherwise>
+        
+        </c:choose>
+                
 </body>
 </html>
 <link

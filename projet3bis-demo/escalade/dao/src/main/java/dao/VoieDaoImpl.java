@@ -27,8 +27,8 @@ public class VoieDaoImpl  implements VoieDao {
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement("INSERT INTO voie(nom, cotation, id_secteur) VALUES(?, ?, ?);");
-            preparedStatement.setString(1, voie.getNom());
-            preparedStatement.setString(2, voie.getCotation());
+            preparedStatement.setString(1, voie.getNom().toUpperCase());
+            preparedStatement.setString(2, voie.getCotation().toUpperCase());
             preparedStatement.setInt(3, secteur.getId());
             
             preparedStatement.executeUpdate();

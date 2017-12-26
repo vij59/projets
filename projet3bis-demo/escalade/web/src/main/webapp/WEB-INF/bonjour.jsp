@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file ="pages/header.jsp"  %>
 <html>
 	<head>
@@ -16,7 +17,7 @@
 					Bienvenue sur le site des fondus de la grimpette
 				</h2>
 				<p>
-					Rejoignez notre communauté et partagez vos parcours d'escalade
+					Rejoignez notre communautÃ© et partagez vos parcours d'escalade
 				</p>
 				<p>
 					<a class="btn btn-primary btn-large" href="/web/creerUtilisateur">S'inscrire</a>
