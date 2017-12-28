@@ -137,6 +137,38 @@ public class TopoDaoImpl implements TopoDao {
 
     }
 	
+    public void rendreTopo(int idTopo) throws DaoException {
+   	 Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+       try {
+           connexion = daoFactory.getConnection();
+           preparedStatement = connexion.prepareStatement("Update topo set disponibilité = true where id_topo = ?;");
+
+           preparedStatement.setInt(1, idTopo);
+          
+           preparedStatement.executeUpdate();
+           connexion.commit();
+       } catch (SQLException e) {
+           try {
+               if (connexion != null) {
+                   connexion.rollback();
+               }
+           } catch (SQLException e2) {
+           }
+           throw new DaoException("Impossible de communiquer avec la base de donn�es");
+       }
+       finally {
+           try {
+               if (connexion != null) {
+                   connexion.close();  
+               }
+           } catch (SQLException e) {
+               throw new DaoException("Impossible de communiquer avec la base de donn�es");
+           }
+       }
+
+   }
 
 
 }

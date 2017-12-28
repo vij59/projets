@@ -16,16 +16,16 @@
       <c:otherwise>
         <form method="post" action="creerUtilisateur">
             <label for="nom">nom : </label>
-            <input type="text" name="nom" id="nom" /><br/>
+            <input type="text" name="nom" id="nom"  required/><br/>
             
              <label for="prenom">prenom : </label>
-            <input type="text" name="prenom" id="prenom" /><br/>
+            <input type="text" name="prenom" id="prenom" required/><br/>
             
              <label for="mail">mail : </label>
-            <input type="text" name="mail" id="mail" /><br/>
+            <input type="text" name="mail" id="mail" required/><br/>
             
                   <label for="mdp">mdp : </label>
-            <input type="text" name="mdp" id="mdp" /><br/>
+            <input type="text" name="mdp" id="mdp" required/><br/>
             
             <input type="submit" />
         </form>

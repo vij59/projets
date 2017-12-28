@@ -54,6 +54,12 @@
         
         </c:choose>
         
+        <c:if test="${sessionUtilisateur.role == 1}">
+        <form method="post" action="deconnexion">
+        	<input type="submit" value="Se déconnecter" />
+        </form>
+        </c:if>
+        
          <ul>
 	    <c:forEach var="utilisateur" items="${ utilisateurs }">
 	    	<li>Hello <c:out value="${ utilisateur.mail }" /></li>

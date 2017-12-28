@@ -133,8 +133,8 @@ public class DetailsSite extends HttpServlet {
 		}
 		}
 		
-		request.setAttribute("site", siteDetail);
-		session.setAttribute("site", siteDetail);
+		request.setAttribute("siteDetail", siteDetail);
+		session.setAttribute("siteDetail", siteDetail);
 		
 		
 		

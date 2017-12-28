@@ -11,8 +11,48 @@
 	<br />
 	<br />
 	<br />
+	
+	
 
+<script>
 
+var paysEtRegion = {};
+
+var tab =[];
+tab.push("bite");
+<c:forEach var="pays" items="${ pays}">
+paysEtRegion['${ pays }'] = ['x'];
+</c:forEach>
+
+function changerListeRegion() {
+    var listePays = document.getElementById("pays");
+    var listeRegion = document.getElementById("region");
+    var selPays = listePays.options[listePays.selectedIndex].value;
+    while (listeRegion.options.length) {
+    	listeRegion.remove(0);
+    }
+    
+    var toutes = new Option("TOUTES REGIONS");
+    listeRegion.options.add(toutes);
+    <c:forEach var="site" items="${ sites }">
+    if(selPays === '${site.pays}') {
+    var pays = paysEtRegion[selPays];
+    
+    if (pays) {
+        var i;
+        for (i = 0; i < pays.length; i++) {
+        	
+            var region = new Option("${ site.region }");
+            listeRegion.options.add(region); 	
+        }   
+    }
+    }
+    </c:forEach>
+} 
+</script>
+
+	
+	
 	<form method="post" action="recherche">
 		<fieldset>
 			<legend>Recherche</legend>
@@ -20,24 +60,19 @@
 
 			<label for="pays">Pays </span></label> 
 		
-			<select id="pays" name="pays"  >
-				<option value="">Tous les pays</option>
-				<c:forEach var="site" items="${ sites }">
-				<option value="${ site.pays }"><c:out value="${ site.pays }" /></option>
-				</c:forEach>
-			</select> 
-			<br />
 		
-			 <label
-				for="region">Région</span></label>
-				
-				
-			<select id="region" name="region"  >
-				<option value="">Toutes les régions</option>
-				<c:forEach var="site" items="${ sites }">
-				<option value="${ site.region }"><c:out value="${ site.region }" /></option>
-				</c:forEach>
-			</select> 
+		<select id="pays" name="pays" onchange="changerListeRegion()"> 
+  <option value="">TOUS LES PAYS</option>
+  <c:forEach var="pays" items="${ pays }">
+  <option value="${pays }">${pays }</option> 
+  </c:forEach>
+</select> 
+<br />
+<label for="region">Region </span></label>
+<select id="region" name="region"><option value="">Toutes les régions</option></select> 
+		
+		
+			
 			<br />
 			
 				
@@ -50,7 +85,9 @@
 				<input type="text" id="cotationLongueur" name="cotationLongueur"
 				 size="20"
 				maxlength="60" />
-			<input type="submit" />
+				
+				
+			<input type="submit" value="RECHERCHER"/>
 
 
 		</fieldset>
@@ -82,7 +119,7 @@
 								<td>
 									<form method ="post" action="detailsSite">
 									<input type ="text" id="id" name="id" value="<c:out value="${ site.id }" />" hidden>
-									<input type="submit" >
+									<input type="submit" value="Détails">
 									</form>
 							</tr>
 						</tbody>

@@ -14,11 +14,13 @@ import org.beans.Reservation;
 import org.beans.Topo;
 import org.beans.Utilisateur;
 
+import dao.CommentaireDao;
 import dao.DaoException;
 import dao.DaoFactory;
 import dao.ReservationDao;
 import dao.SiteDao;
 import dao.TopoDao;
+import dao.UtilisateurDao;
 
 
 /**
@@ -29,12 +31,16 @@ public class MesReservations extends HttpServlet {
 	private TopoDao topoDao;
 	private SiteDao siteDao;
 	private ReservationDao reservationDao;
+	private CommentaireDao commentaireDao;
+	private UtilisateurDao utilisateurDao;
 
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		this.topoDao = daoFactory.getTopoDao();
 		 this.siteDao = daoFactory.getSiteDao();
 		 this.reservationDao = daoFactory.getReservationDao();
+		 this.commentaireDao = daoFactory.getCommentaireDao();
+		 this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -64,6 +70,7 @@ public class MesReservations extends HttpServlet {
 		
 		try {
 			request.setAttribute("reservations", reservationDao.lister());
+			request.setAttribute("utilisateurs", utilisateurDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,6 +83,19 @@ public class MesReservations extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		try 
+		{
+		int idTopo = Integer.parseInt(request.getParameter("idTopo"));
+		reservationDao.terminerReservation(idTopo);
+		topoDao.rendreTopo(idTopo);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
 		
 		try {
 			request.setAttribute("topos", topoDao.lister());
@@ -90,6 +110,27 @@ public class MesReservations extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if(request.getParameter("formVal").equals("1")) {
+			int idTopoBis = Integer.parseInt(request.getParameter("idTopoBis"));
+			request.setAttribute("top", idTopoBis);
+			session.setAttribute("top", idTopoBis);
+			try {
+				session.setAttribute("commentaires", commentaireDao.lister());
+				request.setAttribute("commentaires", commentaireDao.lister());
+				request.setAttribute("utilisateurs", utilisateurDao.lister());
+			} catch (DaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireTopo.jsp").forward(request, response);
+			
+		}
+		
+		
+		else
+		{
 		this.getServletContext().getRequestDispatcher("/WEB-INF/mesReservations.jsp").forward(request, response);
+		}
 	}
 }

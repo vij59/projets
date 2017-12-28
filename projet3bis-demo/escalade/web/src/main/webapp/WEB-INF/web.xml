@@ -124,6 +124,27 @@
  	<servlet-name>DetailsSite</servlet-name>
  	<servlet-class>com.octest.servlets.DetailsSite</servlet-class>
  </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>Regions</display-name>
+ 	<servlet-name>Regions</servlet-name>
+ 	<servlet-class>com.octest.servlets.Regions</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>CommentaireTopo</display-name>
+ 	<servlet-name>CommentaireTopo</servlet-name>
+ 	<servlet-class>com.octest.servlets.CommentaireTopo</servlet-class>
+ </servlet>
+ <servlet>
+ 	<description>
+ 	</description>
+ 	<display-name>Deconnexion</display-name>
+ 	<servlet-name>Deconnexion</servlet-name>
+ 	<servlet-class>com.octest.servlets.Deconnexion</servlet-class>
+ </servlet>
 
    <servlet-mapping>
    	<servlet-name>CreerUtilisateur</servlet-name>
@@ -185,6 +206,18 @@
    <servlet-mapping>
    	<servlet-name>DetailsSite</servlet-name>
    	<url-pattern>/detailsSite</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>Regions</servlet-name>
+   	<url-pattern>/regions</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>CommentaireTopo</servlet-name>
+   	<url-pattern>/commentaireTopo</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>Deconnexion</servlet-name>
+   	<url-pattern>/deconnexion</url-pattern>
    </servlet-mapping>
   
 

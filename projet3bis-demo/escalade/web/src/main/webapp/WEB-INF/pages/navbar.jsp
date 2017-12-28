@@ -65,11 +65,41 @@
 						<li>
 							<a href="/web/recherche">Recherche</a>
 						</li>
+						
+						<c:if test="${sessionUtilisateur.role == 1}">
+						<li>
+        <form method="post" action="deconnexion">
+        	<input type="submit" value="Deconnecter" style="margin: 0;
+    padding: 0;
+    line-height: 100%; /* Si ça fonctionne pas mets 0 */
+    border: 0;
+    margin-top: 22%;
+    background: none; /* ou transparent je sais plus... */
+    font: /* Définis le même font qu'un lien traditionnel */;
+    color: /* La même couleur... */;
+    text-decoration: underline; /* Normalement */"/>
+        </form>
+         </li>
+        </c:if>
+       
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#">Action</a>
+									<c:if test="${sessionUtilisateur.role == 1}">
+						<li>
+        <form method="post" action="deconnexion">
+        	<input type="submit" value="Deconnecter" style="margin: 0;
+    padding: 0;
+    line-height: 100%; /* Si ça fonctionne pas mets 0 */
+    border: 0;
+    background: none; /* ou transparent je sais plus... */
+    font: /* Définis le même font qu'un lien traditionnel */;
+    color: /* La même couleur... */;
+    text-decoration: underline; /* Normalement */"/>
+        </form>
+         </li>
+        </c:if>
 								</li>
 								<li>
 									<a href="#">Another action</a>

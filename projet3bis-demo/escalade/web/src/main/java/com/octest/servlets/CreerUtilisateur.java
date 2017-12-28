@@ -49,9 +49,18 @@ public class CreerUtilisateur extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         Utilisateur utilisateur = new Utilisateur();
-       
+       boolean mailExiste = false;
         try { // verification du mail
-			if (utilisateurDao.validerMail(request.getParameter("mail")) == false) 
+        	
+        	for(Utilisateur user : utilisateurDao.lister()) 
+        	{
+        		if(request.getParameter("mail").equals(user.getMail()))
+        		{
+        			mailExiste=true;
+        		}
+        	}
+        	
+			if (mailExiste == false) 
 			{
 			
 			try {
@@ -72,6 +81,10 @@ public class CreerUtilisateur extends HttpServlet {
 				e.printStackTrace();
 			}
 			//fin du if validerMail
+			}
+			else 
+			{
+				System.out.println("deja ce nom");
 			}
 		} catch (DaoException e1) {
 			// TODO Auto-generated catch block

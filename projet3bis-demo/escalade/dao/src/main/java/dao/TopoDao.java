@@ -9,4 +9,5 @@ public interface TopoDao {
 	  void ajouterTopo( Topo topo , int idSite) throws DaoException, FileNotFoundException;
 	    List<Topo> lister() throws DaoException;
 	    void reserverTopo(int idTopo) throws DaoException ;
+	     void rendreTopo(int idTopo) throws DaoException;
 }

@@ -8,6 +8,8 @@ import org.beans.Utilisateur;
 public interface UtilisateurDao {
     void ajouterUtilisateur( Utilisateur utilisateur ) throws DaoException;
     List<Utilisateur> lister() throws DaoException;
-    boolean validerMail(String mail) throws DaoException;
     boolean validerMdp(String mail, String mdp) throws DaoException;
+    String encrypt(String password);
+    String decrypt(String password);
+   
 }

@@ -55,14 +55,32 @@ public class BetaConn extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         Utilisateur utilisateur = new Utilisateur();
-       
+        boolean mailExiste = false;
+        boolean mdpExiste = false;
        
 			try {
-				if ((utilisateurDao.validerMail(request.getParameter("mail")) == false))
+				for(Utilisateur user : utilisateurDao.lister()) 
+	        	{
+	        		if(request.getParameter("mail").equals(user.getMail()))
+	        		{
+	        			mailExiste=true;
+	        		}
+	        	}
+				if (mailExiste == true) 
+				
 				{
 					System.out.println("mail OK");
-					if ((utilisateurDao.validerMdp(request.getParameter("mail"), request.getParameter("mdp"))== true)) 
-						{
+					for(Utilisateur user : utilisateurDao.lister())
+		        	{
+		        		if((mailExiste == true) && request.getParameter("mdp").equals(user.getMdp()))
+		        		{
+		        			mdpExiste = true;
+		        			System.out.println(user.getMdp());
+		        			
+		        		}
+		        	}
+					
+					if(mdpExiste == true) {	
      
 						utilisateur.setMail(request.getParameter("mail"));
 						utilisateur.setMdp(request.getParameter("mdp"));

@@ -30,7 +30,9 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
             preparedStatement.setString(1, utilisateur.getNom());
             preparedStatement.setString(2, utilisateur.getPrenom());
             preparedStatement.setString(3, utilisateur.getMail());
-            preparedStatement.setString(4, utilisateur.getMdp());
+            String mdp = encrypt(utilisateur.getMdp());
+            System.out.println(mdp);
+            preparedStatement.setString(4, mdp);
 
             preparedStatement.executeUpdate();
             connexion.commit();
@@ -73,6 +75,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
                 
                 String mail = resultat.getString("mail");
                 String mdp = resultat.getString("mdp");
+                mdp = decrypt(mdp);
 
                 Utilisateur utilisateur = new Utilisateur();
                 utilisateur.setId(id);
@@ -100,47 +103,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         return utilisateurs;
     }
 
-    public boolean validerMail(String mail) throws DaoException {
-        Connection connexion = null;
-        Statement statement = null;
-        ResultSet resultat = null;
-        boolean res = true;
-        int x=0;
-
-        try {
-            connexion = daoFactory.getConnection();
-            statement = connexion.createStatement();
-            resultat = statement.executeQuery("SELECT mail FROM utilisateur;");
-
-            while (resultat.next()) {
-               
-                String email = resultat.getString("mail");
-               if (mail.equals(email)) {
-            	   System.out.println("le mail existe");
-            	   // si le mail existe, on augmente x
-            	   x++;
-               }
-               
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Impossible de communiquer avec la base de donn�es");
-        } catch (Exception e) {
-            throw new DaoException("Les donn�es de la base sont invalides");
-        }
-        finally {
-            try {
-                if (connexion != null) {
-                    connexion.close();  
-                }
-            } catch (SQLException e) {
-                throw new DaoException("Impossible de communiquer avec la base de donn�es");
-            }
-        }
-        
-        if (x>0) { res = false;}
-	
-	return res;
-    }
+    
 
     public boolean validerMdp(String mail, String mdp) throws DaoException {
     	// true si connexion ok, false sinon
@@ -150,8 +113,6 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         boolean res = false;
         int x=0;
         
-        if (validerMail(mail) == false)
-        {
              
         try {
             connexion = daoFactory.getConnection();
@@ -184,8 +145,29 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
         }
         
         if (x>0) { res = true;}
-        }
-        
+      
 	return res;
     }
+    
+    public String encrypt(String password){
+        String crypte= "";
+        for (int i=0; i<password.length();i++)  {
+            int c=password.charAt(i)^48;  
+            crypte=crypte+(char)c; 
+        }
+        return crypte;
+    }
+    
+    public String decrypt(String password){
+        String aCrypter= "";
+        for (int i=0; i<password.length();i++)  {
+            int c=password.charAt(i)^48;  
+            aCrypter=aCrypter+(char)c; 
+        }
+        return aCrypter;
+    }
+
+	
+    
+    
 }

@@ -58,8 +58,25 @@ public class Recherche extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		Set<String>listePays = new HashSet<String>();
+		Set<String>listeRegions = new HashSet<String>();
 		try {
+			for (Site site : siteDao.lister())
+			{
+				String country = site.getPays();
+				listePays.add(country);
+				String area = site.getRegion();
+				listeRegions.add(area);
+			}
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		try {
+			request.setAttribute("pays", listePays);
+			request.setAttribute("regions", listeRegions);
 			request.setAttribute("sites", siteDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
@@ -74,19 +91,7 @@ public class Recherche extends HttpServlet {
 	 * 
 	 * 
 	 */
-	
-	public Site recherche(String pays, String region, Site site) {
-		if(pays.equals("") && region.equals("")){
-			return site;
-		}
-		else if(pays.equals("") && !region.equals("")){
-			if(site.getRegion().equals(region)){
-				
-			}
-		}
-		return site;
-		
-	}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Site> listeSites = null;
@@ -105,7 +110,17 @@ public class Recherche extends HttpServlet {
 			e1.printStackTrace();
 		}	
 		String pays = request.getParameter("pays").toUpperCase();
-		String region = request.getParameter("region").toUpperCase();
+		String region = "";
+		try {
+			 region = request.getParameter("region").toUpperCase();
+			 if(region.equals("TOUTES REGIONS")) {
+				 region ="";
+			 }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("pas de region");
+		}
 		String cotationVoie = request.getParameter("cotationVoie").toUpperCase();
 		String cotationLongueur = request.getParameter("cotationLongueur").toUpperCase();
 
@@ -114,7 +129,7 @@ public class Recherche extends HttpServlet {
 
 		for (Site site : listeSites) {
 
-			if(pays.equals("") && region.equals("")){
+			if(pays.equals("")){
 
 				if (cotationLongueur.equals("") && !cotationVoie.equals("")) {
 
@@ -284,95 +299,6 @@ public class Recherche extends HttpServlet {
 				}
 			}
 			
-			else if(pays.equals("") && !region.equals("")){
-
-				if (cotationLongueur.equals("") && !cotationVoie.equals("")) {
-
-					for(Voie v : listeVoies) {
-						if(v.getCotation().equals(cotationVoie)) {
-							int sect = v.getIdSecteur();
-							for(Secteur s : listeSecteurs) 
-							{
-								if (s.getId() == sect){
-									int siteId = s.getIdSite();
-									if(site.getId() == siteId) {
-										if(site.getRegion().equals(region)){
-											listeSitesTrouvés.add(site);
-										}
-									}
-								}
-							}
-
-						}
-					}
-
-				}
-
-				else if (cotationVoie.equals("")&&!cotationLongueur.equals("")) {
-
-					for(Longueur l : listeLongueurs) {
-						if(l.getCotation().equals(cotationLongueur)) {
-							int voi = l.getIdVoie();
-
-							for(Voie v : listeVoies) 
-							{
-								if (v.getId() == voi){
-									int secteurId = v.getIdSecteur();
-
-									for(Secteur s : listeSecteurs) {
-										if(s.getId() == secteurId) {
-											int siteId = s.getIdSite();
-											if(site.getId() == siteId) {
-												if(site.getRegion().equals(region)){
-													listeSitesTrouvés.add(site);
-												}
-												
-											}
-										}
-									}
-								}
-							}
-
-						}
-					}
-
-				}
-
-				else if (!cotationVoie.equals("")&&!cotationLongueur.equals(""))  {
-					for(Longueur l : listeLongueurs) {
-						if(l.getCotation().equals(cotationLongueur)) {
-							int voi = l.getIdVoie();
-
-							for(Voie v : listeVoies) 
-							{
-								if (v.getId() == voi){
-									if(v.getCotation().equals(cotationVoie)) {
-										int secteurId = v.getIdSecteur();
-
-										for(Secteur s : listeSecteurs) {
-											if(s.getId() == secteurId) {
-												int siteId = s.getIdSite();
-												if(site.getId() == siteId) {
-													if(site.getRegion().equals(region)){
-														listeSitesTrouvés.add(site);
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-
-						}
-					}
-				}
-				else {
-					if(site.getRegion().equals(region)){
-						listeSitesTrouvés.add(site);
-						
-					}
-				}
-			}
 			
 			else if(!pays.equals("") && !region.equals("")){
 
@@ -492,8 +418,25 @@ public class Recherche extends HttpServlet {
 			request.setAttribute("siteRecherché", listeSitesTrouvés);
 
 
-
+			Set<String>listePays = new HashSet<String>();
+			Set<String>listeRegions = new HashSet<String>();
 			try {
+				for (Site site : siteDao.lister())
+				{
+					String country = site.getPays();
+					listePays.add(country);
+					String area = site.getRegion();
+					listeRegions.add(area);
+				}
+			} catch (DaoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			try {
+				request.setAttribute("pays", listePays);
+				request.setAttribute("regions", listeRegions);
 				request.setAttribute("sites", siteDao.lister());
 			} catch (DaoException e) {
 				// TODO Auto-generated catch block

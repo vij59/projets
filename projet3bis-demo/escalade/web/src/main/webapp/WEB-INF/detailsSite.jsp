@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="pages/header.jsp"%>
 <html>
@@ -15,7 +15,7 @@
 
 
 	<p>Liste des sites</p>
-
+	<c:set var = "site" scope = "page" value = "${siteDetail}"/>
 	<p>The length of the secteurs is : ${fn:length(site.secteurs)}</p>
 
 
@@ -57,7 +57,10 @@
 											Voie
 											<c:out value="${j+1}" />
 											:&nbsp;
-											<c:out value="${ site.secteurs[i].voies[j].nom}" /> (<c:out value="${ site.secteurs[i].voies[j].cotation}" />)
+											<c:out value="${ site.secteurs[i].voies[j].nom}" />
+											(
+											<c:out value="${ site.secteurs[i].voies[j].cotation}" />
+											)
 										</h3>
 
 
@@ -73,8 +76,11 @@
 														<c:out value="${l+1}" />
 														:&nbsp;
 														<c:out
-															value="${ site.secteurs[i].voies[j].longueurs[l].nom}" />&nbsp;(<c:out
-															value="${ site.secteurs[i].voies[j].longueurs[l].cotation}" />)
+															value="${ site.secteurs[i].voies[j].longueurs[l].nom}" />
+														&nbsp;(
+														<c:out
+															value="${ site.secteurs[i].voies[j].longueurs[l].cotation}" />
+														)
 													</h4>
 
 												</c:forEach>
@@ -91,6 +97,6 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<%@ include file="pages/footer.jsp"%>

@@ -56,4 +56,7 @@ public class DaoFactory {
     public ReservationDaoImpl getReservationDao() {
         return new ReservationDaoImpl(this);
     }
+    public CommentaireDaoImpl getCommentaireDao() {
+        return new CommentaireDaoImpl(this);
+    }
 }

@@ -24,6 +24,7 @@
 						<tr>
 							<th>Nom Topo</th>
 							<th>Fichier</th>
+							<th></th>
 							<th>Site</th>
 							<th></th>
 						</tr>
@@ -35,7 +36,7 @@
 							<tr>
 								<td><c:out value="${ topo.nomTopo }" /></td>
 								<td><c:out value="${ topo.fichier }" /></td>
-								<td><c:out value="${ topo.idSite }" /> <c:forEach
+								<td> <c:forEach
 										var="site" items="${ sites }">
 										<c:set var="idSiteTopo" scope="session"
 											value="${ topo.idSite }" />
@@ -83,10 +84,6 @@
 	</div>
 
 
-	<c:forEach var="site" items="${ sites }">
-		<p>
-			<c:out value="${ site.nomSite }" />
-		</p>
-	</c:forEach>
+	
 
 	<%@ include file="pages/footer.jsp"%>

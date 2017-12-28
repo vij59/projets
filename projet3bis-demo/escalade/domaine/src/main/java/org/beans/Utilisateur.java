@@ -50,4 +50,5 @@ public class Utilisateur {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
 }
