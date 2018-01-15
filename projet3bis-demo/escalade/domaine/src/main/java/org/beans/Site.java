@@ -1,7 +1,9 @@
 package org.beans;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Site {
 	
@@ -11,7 +13,9 @@ public class Site {
     private String region;
     private int codePostal;
     private int nbSecteurs;
+   
     private  List<Secteur> secteurs = new ArrayList<Secteur>();
+    
     
 	public int getId() {
 		return id;
@@ -58,6 +62,15 @@ public class Site {
 			this.secteurs.add(secteur);
 			
 		}
+		public void removeSecteurs() {
+			this.secteurs.clear();
+			
+		}
+		public void removeSecteur(Secteur secteur) {
+			this.secteurs.remove(secteur);
+			
+		}
+		
 		@Override
 		public String toString() {
 			return "Site [id=" + id + ", nomSite=" + nomSite + ", pays=" + pays + ", region=" + region + ", codePostal="

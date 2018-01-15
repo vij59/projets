@@ -47,7 +47,7 @@ public class AjouterVoie extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
+		request.setAttribute("secteursFinis", 0);
 
 		Voie voie = new Voie();
 		voie.setNom(request.getParameter("nom_voie"));
@@ -60,13 +60,22 @@ public class AjouterVoie extends HttpServlet {
 		Secteur secteur = new Secteur();
 		secteur = (Secteur) listeSecteurs.get(j);
 		try {
-			if(request.getParameter("nom_voie").isEmpty())
+			char premiereLettreNom = request.getParameter("nom_voie").charAt(0);
+			char premiereLettreCotation = request.getParameter("cotation").charAt(0);
+			if(request.getParameter("nom_voie").isEmpty() ||request.getParameter("cotation").isEmpty() || premiereLettreNom  ==' ' || premiereLettreCotation==' ' )
 			{ 
-				System.out.println("vide");
+				if(premiereLettreNom ==' ') {
+					request.setAttribute("errorNom", "Voie doit avoir un nom");
+				}
+				if(premiereLettreCotation ==' ') {
+					request.setAttribute("errorCotation", "Cotation obligatoire");
+				}
+
 			}
 			else {
 				secteur.addVoie(voie);
 				liste2Voies.add(voie);
+				request.setAttribute("affichage", 1);
 			}
 		}
 		catch (Exception e) {
@@ -83,16 +92,23 @@ public class AjouterVoie extends HttpServlet {
 			i++;
 		}
 
+
+
 		try {
 			if((Integer.parseInt(request.getParameter("fini"))==1)&&(j<listeSecteurs.size())) {
+
 				j++;
 
 				List <Secteur>listeSec = new ArrayList<Secteur>();
+
 				if (j<listeSecteurs.size()){
 					Secteur sec = (Secteur) listeSecteurs.get(j);
 					listeSec.add(sec);
 					request.setAttribute("sect", listeSec);
 					session.setAttribute("sect", listeSec);
+					request.setAttribute("affichage", 0);
+
+
 				}
 
 				listeVoies.clear();
@@ -102,6 +118,9 @@ public class AjouterVoie extends HttpServlet {
 			System.out.println("erreur");
 		}
 
+		if (j == listeSecteurs.size()-1){
+			request.setAttribute("secteursFinis", 1);
+		}
 
 		if(j>=listeSecteurs.size())
 		{ 
@@ -125,9 +144,12 @@ public class AjouterVoie extends HttpServlet {
 			session.setAttribute("listeVoies", liste2Voies);
 			request.setAttribute("voies", listeVoies);
 			session.setAttribute("voies", listeVoies);
+
 			this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterLongueur.jsp").forward(request, response);
 		}
 		else {
+			
+			
 			session.setAttribute( "numSecteur", j );
 			request.setAttribute( "numSecteur", j );
 			request.setAttribute("voies", listeVoies);

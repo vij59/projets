@@ -54,7 +54,12 @@ public class MesReservations extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 try {
+		HttpSession session = request.getSession();
+		String servletPath = request.getServletPath(); 
+		System.out.println(" servlet path : "+servletPath);
+		session.setAttribute("redirection", servletPath);
+		
+		try {
 				request.setAttribute("sites", siteDao.lister());
 			} catch (DaoException e) {
 				// TODO Auto-generated catch block
@@ -85,6 +90,7 @@ public class MesReservations extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		
 		try 
 		{
 		int idTopo = Integer.parseInt(request.getParameter("idTopo"));
@@ -93,24 +99,19 @@ public class MesReservations extends HttpServlet {
 		}
 		catch (Exception e)
 		{
-			
-		}
-		
-		
-		try {
-			request.setAttribute("topos", topoDao.lister());
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		try {
+			request.setAttribute("topos", topoDao.lister());
 			request.setAttribute("reservations", reservationDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+	
+		try{
 		if(request.getParameter("formVal").equals("1")) {
 			int idTopoBis = Integer.parseInt(request.getParameter("idTopoBis"));
 			request.setAttribute("top", idTopoBis);
@@ -124,13 +125,16 @@ public class MesReservations extends HttpServlet {
 				e.printStackTrace();
 			}
 			this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireTopo.jsp").forward(request, response);
-			
 		}
-		
-		
+
 		else
 		{
 		this.getServletContext().getRequestDispatcher("/WEB-INF/mesReservations.jsp").forward(request, response);
+		}
+		}
+		finally
+		{
+			this.getServletContext().getRequestDispatcher("/WEB-INF/mesReservations.jsp").forward(request, response);
 		}
 	}
 }

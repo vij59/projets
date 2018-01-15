@@ -14,31 +14,19 @@
 	<br />
 
 
-	<p>Liste des sites</p>
-
-	<p>The length of the secteurs is : ${fn:length(site.secteurs)}</p>
-
 
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Nom site</th>
-							<th>Noms secteurs</th>
-							<th>Noms voies</th>
-							<th>Noms longueurs</th>
-						</tr>
-					</thead>
-				</table>
+				
 				<ol>
 
 					<h1>
 						Site :
 						<c:out value="${ site.nomSite }" />
-
-
+						-- Pays : <c:out value="${ site.pays }" />
+						-- Région : <c:out value="${ site.region }" />
+				
 						<ol>
 							<c:forEach begin="0" end="${fn:length(site.secteurs)-1}" var="i"
 								step="1">
@@ -58,6 +46,9 @@
 											<c:out value="${j+1}" />
 											:&nbsp;
 											<c:out value="${ site.secteurs[i].voies[j].nom}" />
+											(
+											<c:out value="${ site.secteurs[i].voies[j].cotation}" />
+											)
 										</h3>
 
 
@@ -74,6 +65,10 @@
 														:&nbsp;
 														<c:out
 															value="${ site.secteurs[i].voies[j].longueurs[l].nom}" />
+														&nbsp;(
+														<c:out
+															value="${ site.secteurs[i].voies[j].longueurs[l].cotation}" />
+														)
 													</h4>
 
 												</c:forEach>
@@ -90,7 +85,31 @@
 			</div>
 		</div>
 	</div>
+	<br/>
+	
 	<form action="recapSite" method="post">
-	<input type ="submit"></form>
+	<button type ="submit" value="valider ce site" class='btn btn-info'><span class="glyphicon glyphicon-edit"></span>Confirmer</form>
+	
+	<form action="AnnulerSite" method="post">
+	<button type ="submit" value="Annuler"  class="btn btn-danger "><span
+								class="glyphicon glyphicon-remove"></span>Annuler</button></form>
+	
+	<style>
+	form {
+ /* Float both forms to the left */
+ float: left; 
+ /* borders added for visibility. Just remove them */
+margin-left : 15%;
+padding-right : 2%;
+}
+form#updateForm {
+ clear: right;
+ /* with some space to the left of the second form */
+ margin-right: 20px; 
+}
+/* Give an id to the <p> which follows the second form and clear: both */
+p#submit {
+  clear: both;
+}</style>
 
 	<%@ include file="pages/footer.jsp"%>

@@ -99,6 +99,51 @@ public class SiteDaoImpl  implements SiteDao {
 		return sites;
 	}
 
+	public List<Site> listerDistinct() throws DaoException {
+		List<Site> sites = new ArrayList<Site>();
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT distinct   region, pays, nom FROM site ;");
+
+			while (resultat.next()) {
+				
+				String nomSite = resultat.getString("nom");
+				String pays = resultat.getString("pays");
+
+				String region = resultat.getString("region");
+
+
+				Site site = new Site();
+			
+				site.setNomSite(nomSite);
+				site.setPays(pays);
+				site.setRegion(region);
+
+
+				sites.add(site);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Impossible de communiquer avec la base de donn�es");
+		} catch (Exception e) {
+			throw new DaoException("Les donn�es de la base sont invalides");
+		}
+		finally {
+			try {
+				if (connexion != null) {
+					connexion.close();  
+				}
+			} catch (SQLException e) {
+				throw new DaoException("Impossible de communiquer avec la base de donn�es");
+			}
+		}
+		return sites;
+	}
+	
 	public int recupererIdSite(Site site) throws DaoException {
 		Connection connexion = null;
 		Statement statement = null;

@@ -11,7 +11,7 @@
 	<br />
 	<br />
 	<br />
-Commentez le topo 
+Laissez un avis au topo 
 <c:forEach var="topo" items="${ topos }">
 <c:if test="${top == topo.idTopo }">
 <c:out value="${ topo.nomTopo }" />
@@ -19,38 +19,66 @@ Commentez le topo
 </c:forEach>
 
 
-<form action ="commentaireTopo" method="post" id="usrform">
+<form action ="CommentaireTopo" method="post" id="usrform">
 
-<textarea rows="4" cols="50" name="comment" form="usrform" placeholder="">
+<textarea rows="4" cols="50" name="comment" form="usrform" placeholder="" required>
 </textarea>
-<input type="submit" value="Valider le commentaire">
+<button type="submit" value="Valider le commentaire" class='btn btn-warning '>Valider</button>
 </form>
 <br/>
 
-
-
-<table border="2px solid black">
-<th>Utilisateur</th>
-<th>Commentaire</th>
-<th>Date</th>
-
+<div class="col-lg-6 col-md-7 col-xs-10">
+<c:set var="top" scope="page" value="${top}" />
 <c:forEach var="commentaire" items="${ commentaires }">
-<c:if test="${top == commentaire.idTopo }">
-<c:forEach var="utilisateur" items="${ utilisateurs }">
+			<c:if test="${top == commentaire.idTopo }">
+				<c:forEach var="utilisateur" items="${ utilisateurs }">
 
-<c:if test="${ utilisateur.id == commentaire.idUtilisateur }">
-<tr border="2px solid black">
-	<td><c:out value="${ utilisateur.nom }" /></td>
-	<td><c:out value="${ commentaire.commentaire }" /></td> 
-	<td><c:out value="${ commentaire.date }" /></td> 
-</tr>
-</c:if>
+					<c:if test="${ utilisateur.id == commentaire.idUtilisateur }">
 
-</c:forEach>
-</c:if>
-</c:forEach>
-</table>
 
+						<div class="comments-list">
+							<div class="media"><c:if test="${ utilisateur.id == sessionUtilisateur.id }">
+											<form action="SupprimerCommentaireTopo" method="post">
+												<p class="pull-right">
+													<small><c:out value="${ commentaire.date }" /></small>
+													<br/>
+													<input type="text" id="cache" name="cache"
+									value="1" hidden> 
+													<input type="text" id="idTopo" name="idTopo"
+									value="${ top }" hidden> 
+									
+													<input type="text" value="${ commentaire.id }" hidden name="idCommentaire" id="idCommentaire">
+														<small><button type="submit" class="btn btn-default btn-xs ">Supprimer</button></small>
+														
+												</p>
+												</form>
+										</c:if>
+								<div class="media-body">
+
+									<h4 class="media-heading user_name">
+										<c:out value="${ utilisateur.nom }" />
+									</h4>
+									<c:out value="${ commentaire.commentaire }" />
+
+								</div>
+							</div>
+						</div>
+					</c:if>
+
+				</c:forEach>
+			</c:if>
+		</c:forEach>
+</div>
+		<style>
+.user_name {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.comments-list .media {
+	border-bottom: 1px dotted #ccc;
+}
+</style>
 									
 	
 

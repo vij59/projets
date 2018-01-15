@@ -169,6 +169,41 @@ public class TopoDaoImpl implements TopoDao {
        }
 
    }
+    
+    public String getNomSite(int idSite) throws DaoException {
+    	String nomSite=null;
+        Connection connexion = null;
+        Statement statement = null;
+        ResultSet resultat = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultat = statement.executeQuery("SELECT nom FROM site where id_site="+idSite+";");
+
+            while (resultat.next()) {
+               
+                 nomSite = resultat.getString("nom");
+                
+               
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Impossible de communiquer avec la base de donn�es");
+        } catch (Exception e) {
+            throw new DaoException("Les donn�es de la base sont invalides");
+        }
+        finally {
+            try {
+                if (connexion != null) {
+                    connexion.close();  
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Impossible de communiquer avec la base de donn�es");
+            }
+        }
+        return nomSite;
+    }
+
 
 
 }

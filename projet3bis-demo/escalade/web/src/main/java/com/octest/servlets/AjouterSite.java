@@ -39,7 +39,10 @@ public class AjouterSite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		HttpSession session = request.getSession();
+		String servletPath = request.getServletPath(); 
+		System.out.println(" servlet path : "+servletPath);
+		session.setAttribute("redirection", servletPath);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSite.jsp").forward(request, response);
 	}
@@ -50,20 +53,50 @@ public class AjouterSite extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Site site = new Site();
 		HttpSession session = request.getSession();
-
+		char premiereLettreNom = request.getParameter("nom_site").charAt(0);
+		char premiereLettrePays = request.getParameter("pays").charAt(0);
+		char premiereLettreRegion = request.getParameter("region").charAt(0);
+		
+		if(premiereLettreNom ==' ' || premiereLettrePays == ' ' || premiereLettreRegion == ' ' ) {
+			if(premiereLettreNom ==' ') {
+				request.setAttribute("errorNom", "Site doit avoir un nom");
+			}
+			if(premiereLettrePays ==' ') {
+				request.setAttribute("errorPays", "Pays obligatoire");
+			}
+			if(premiereLettreRegion ==' ') {
+				request.setAttribute("errorRegion", "Region obligatoire, entrer X si inconnue");
+			}
+		}
+		else {
+			
+		
 		site.setNomSite(request.getParameter("nom_site"));
 		site.setPays(request.getParameter("pays"));
 		site.setRegion(request.getParameter("region"));
+		site.setId(1);
 
 		session.setAttribute("site", site);
 		request.setAttribute("site", site);
-
+		}
 		/*
        List<Site> listeSites = new ArrayList<Site>();
         listeSites.add(site);
         request.setAttribute("sites", listeSites);
         session.setAttribute( "sites", listeSites );
 		 */
+		try {
+			int i = Integer.parseInt(request.getParameter("reponse"));
+			if(i==1) {
+				session.setAttribute("site", null);
+				request.setAttribute("site", null);
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSite.jsp").forward(request, response);
 	}

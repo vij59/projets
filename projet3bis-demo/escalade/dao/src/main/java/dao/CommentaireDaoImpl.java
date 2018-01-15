@@ -69,10 +69,11 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id_topo, id_utilisateur, commentaire , date FROM commentaire;");
+			resultat = statement.executeQuery("SELECT id , id_topo, id_utilisateur, commentaire , date FROM commentaire;");
 
 			while (resultat.next()) {
 				
+				int id= resultat.getInt("id");
 				int idTopo= resultat.getInt("id_topo");
 				int idUtilisateur = resultat.getInt("id_utilisateur");
 				String comment = resultat.getString("commentaire");
@@ -81,6 +82,7 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 			
 				Commentaire commentaire = new Commentaire();
 				
+				commentaire.setId(id);
 				commentaire.setIdTopo(idTopo);
 				commentaire.setIdUtilisateur(idUtilisateur);
 				commentaire.setCommentaire(comment);
@@ -105,6 +107,53 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 		}
 		return commentaires;
 	}
+
+	public void ajouterCommentaireSite(Commentaire commentaire) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Commentaire> listerById(int idSite2) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void supprimerCommentaireSite(int idCommentaire) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void supprimerCommentaireTopo (int idCommentaire) throws DaoException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = connexion.prepareStatement("DELETE FROM commentaire WHERE id="+idCommentaire+";");
+			
+			preparedStatement.executeUpdate();
+			connexion.commit();
+		} catch (SQLException e) {
+			try {
+				if (connexion != null) {
+					connexion.rollback();
+				}
+			} catch (SQLException e2) {
+			}
+			throw new DaoException("Impossible de communiquer avec la base de donn�es");
+		}
+		finally {
+			try {
+				if (connexion != null) {
+					connexion.close();  
+				}
+			} catch (SQLException e) {
+				throw new DaoException("Impossible de communiquer avec la base de donn�es");
+			}
+		}
+
+	}
+
 
 	
 }

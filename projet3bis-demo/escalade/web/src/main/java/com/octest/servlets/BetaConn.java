@@ -55,8 +55,10 @@ public class BetaConn extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         Utilisateur utilisateur = new Utilisateur();
+        HttpSession session = request.getSession();
         boolean mailExiste = false;
         boolean mdpExiste = false;
+        boolean accèsAccordé = false;
        
 			try {
 				for(Utilisateur user : utilisateurDao.lister()) 
@@ -105,21 +107,21 @@ public class BetaConn extends HttpServlet {
 						utilisateur.setRole(1);
 						
 						System.out.println("mot de passe concorde avec mail");
-						 HttpSession session = request.getSession();
+						  session = request.getSession();
 						  session.setAttribute( ATT_SESSION_USER, utilisateur );
 						  request.setAttribute( ATT_USER, utilisateur );
-						
+						  accèsAccordé = true;
 						}
 					else 
 					{
 						System.out.println("erreur de mot de passe");
-						request.setAttribute("errorMdp", "erreur de mot de passe");
+						request.setAttribute("errorMdp", "Mot de passe invalide");
 					}
 				}
 				else 
 				{
 					System.out.println("mail pas dans la BDD");
-					request.setAttribute("errorMail", "Mail pas bon");
+					request.setAttribute("errorMail", "Mail invalide");
 				}
 			} catch (DaoException e1) {
 				// TODO Auto-generated catch block
@@ -130,8 +132,22 @@ public class BetaConn extends HttpServlet {
 			
        
         
-      
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/betaConn.jsp").forward(request, response);
+			String servletPath = (String) session.getAttribute("redirection");
+			System.out.println(servletPath);
+			
+			if(accèsAccordé == true) {
+			if (servletPath == null) {
+				 this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+			}
+			else{
+				response.sendRedirect("/web"+servletPath);
+			}
+			}
+			else 
+			{
+				 this.getServletContext().getRequestDispatcher("/WEB-INF/betaConn.jsp").forward(request, response);	
+			}
+			}
+			
     }
-}
+

@@ -60,6 +60,8 @@ public class Recherche extends HttpServlet {
 		// TODO Auto-generated method stub
 		Set<String>listePays = new HashSet<String>();
 		Set<String>listeRegions = new HashSet<String>();
+		List<String>listeDesRegions = new ArrayList<String>();
+		Set<Site> listeDesSites = new HashSet<Site>();
 		try {
 			for (Site site : siteDao.lister())
 			{
@@ -67,21 +69,24 @@ public class Recherche extends HttpServlet {
 				listePays.add(country);
 				String area = site.getRegion();
 				listeRegions.add(area);
+				
+				
 			}
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		try {
+			
+			
+			
+	
 			request.setAttribute("pays", listePays);
 			request.setAttribute("regions", listeRegions);
+			
+			request.setAttribute("site", siteDao.listerDistinct());
 			request.setAttribute("sites", siteDao.lister());
-		} catch (DaoException e) {
+		} 
+		catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recherche.jsp").forward(request, response);
 	}
@@ -99,6 +104,10 @@ public class Recherche extends HttpServlet {
 		List <Secteur> listeSecteurs = new ArrayList<Secteur>();
 		List <Voie> listeVoies = new ArrayList<Voie>();
 		List <Longueur> listeLongueurs = new ArrayList<Longueur>();
+		request.setAttribute("affiche", 0);
+		
+		
+		
 
 		try {
 			listeSites = siteDao.lister();
@@ -416,7 +425,10 @@ public class Recherche extends HttpServlet {
 			}
 
 			request.setAttribute("siteRecherché", listeSitesTrouvés);
-
+			
+			if(listeSitesTrouvés != null) {
+				request.setAttribute("affiche", 1);
+			}
 
 			Set<String>listePays = new HashSet<String>();
 			Set<String>listeRegions = new HashSet<String>();
@@ -433,11 +445,14 @@ public class Recherche extends HttpServlet {
 				e1.printStackTrace();
 			}
 			
+		
+		
 			
 			try {
 				request.setAttribute("pays", listePays);
 				request.setAttribute("regions", listeRegions);
 				request.setAttribute("sites", siteDao.lister());
+				 request.setAttribute("site", siteDao.listerDistinct());
 			} catch (DaoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

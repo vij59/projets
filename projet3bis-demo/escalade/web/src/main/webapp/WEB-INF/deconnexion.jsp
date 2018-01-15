@@ -17,8 +17,10 @@
        <br/><br/><br/>
         
   Vous n'êtes plus connecté : 
-  <a href="betaConn">Connectez vous</a>
-  ou <a href="creerUtilisateur">créez un compte</a>
+  <a class="btn btn-primary btn-large" href="/web/betaConn">Se connecter</a>
+  ou
+  <a class="btn btn-primary btn-large" href="/web/creerUtilisateur">S'inscrire</a>
+ 
 
 
  <%@ include file ="pages/footer.jsp"  %>

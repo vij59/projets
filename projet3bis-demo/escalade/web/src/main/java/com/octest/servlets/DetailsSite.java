@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.beans.BeanException;
+import org.beans.Commentaire;
 import org.beans.Longueur;
 import org.beans.Secteur;
 import org.beans.Utilisateur;
 import org.beans.Voie;
 import org.beans.Site;
 
+import dao.CommentaireDao;
 import dao.DaoException;
 import dao.DaoFactory;
 import dao.LongueurDao;
@@ -36,6 +38,8 @@ public class DetailsSite extends HttpServlet {
 	private SecteurDao secteurDao;
 	private VoieDao voieDao;
 	private LongueurDao longueurDao;
+	private CommentaireDao commentaireDao;
+	private UtilisateurDao utilisateurDao;
 
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
@@ -43,6 +47,8 @@ public class DetailsSite extends HttpServlet {
 		this.secteurDao = daoFactory.getSecteurDao();
 		this.voieDao = daoFactory.getVoieDao();
 		this.longueurDao = daoFactory.getLongueurDao();
+		this.commentaireDao = daoFactory.getCommentaireSiteDao();
+		this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -57,9 +63,24 @@ public class DetailsSite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		
+		try {
+		session.removeAttribute("top");
+		session.removeAttribute("topoNom");
+		session.removeAttribute("nomSite");
 
+		session.removeAttribute("idSite");
+		}
+		catch (Exception e) {
+			
+		}
+		
+		
 		try {
 			request.setAttribute("sites", siteDao.lister());
+			request.setAttribute("commentaires", commentaireDao.lister());
+			request.setAttribute("utilisateurs", utilisateurDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,16 +157,73 @@ public class DetailsSite extends HttpServlet {
 		request.setAttribute("siteDetail", siteDetail);
 		session.setAttribute("siteDetail", siteDetail);
 		
+		try {
+			
+	
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur = (Utilisateur) session.getAttribute( "sessionUtilisateur" );
+		System.out.println("id user");
+		System.out.println(utilisateur.getId());
+		
+			
+		int idSite2 =  Integer.parseInt(request.getParameter("id"));
+		
+		
+		System.out.println("id site");
+		System.out.println(idSite2);
+		
+		Commentaire commentaire = new Commentaire();
+		String comment = request.getParameter("comment");
+		commentaire.setCommentaire(comment);
+		commentaire.setIdUtilisateur(utilisateur.getId());
+		commentaire.setIdSite(idSite2);
+		
+		int x=0;
+		for(Commentaire com : commentaireDao.lister()){
+			if(com.getIdSite() == idSite2 && com.getIdUtilisateur() == utilisateur.getId() ) {
+				if(comment.equals(com.getCommentaire())) {
+					x++;
+			}
+			
+			}
+		}
+			
+		
+		
+		if(comment.equals("")) {
+			System.out.println("pas de commentaire");
+		}
+		else if (x>0) {
+			System.out.println("déjà écrit");
+		}
+				
+		
+		else {
+			System.out.println(commentaire.getCommentaire());
+		commentaireDao.ajouterCommentaireSite(commentaire);
+		System.out.println("ajouté");
+		}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
 		
 
 		try {
 			request.setAttribute("sites", siteDao.lister());
+			request.setAttribute("utilisateurs", utilisateurDao.lister());
+			request.setAttribute("commentaires", commentaireDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/detailsSite.jsp").forward(request, response);
+	
+		String servletPath = request.getServletPath(); 
+		System.out.println(" servlet path : "+servletPath);
+		session.setAttribute("redirection", servletPath);
+	
+		this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireValidation.jsp").forward(request, response);
 	}
 }

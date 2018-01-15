@@ -99,7 +99,7 @@ public class CommentaireTopo extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
-		session.removeAttribute("top");
+		
 		
 
 		try {

@@ -59,4 +59,7 @@ public class DaoFactory {
     public CommentaireDaoImpl getCommentaireDao() {
         return new CommentaireDaoImpl(this);
     }
+    public CommentaireSiteDaoImpl getCommentaireSiteDao() {
+        return new CommentaireSiteDaoImpl(this);
+    }
 }

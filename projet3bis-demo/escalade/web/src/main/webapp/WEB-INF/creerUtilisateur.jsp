@@ -1,5 +1,5 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ include file ="pages/header.jsp"  %>
+<%@ page pageEncoding="UTF-8"%>
+<%@ include file="pages/header.jsp"%>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -7,33 +7,86 @@
 </head>
 <body>
 
-<%@ include file ="pages/navbar.jsp"  %>
-<br/><br/><br/>
-     <c:choose>
-      
-  	  <c:when test="${ !empty form.resultat }"><p><c:out value="Bonjour ${ form.resultat }" /></p></c:when>
-  	  
-      <c:otherwise>
-        <form method="post" action="creerUtilisateur">
-            <label for="nom">nom : </label>
-            <input type="text" name="nom" id="nom"  required/><br/>
-            
-             <label for="prenom">prenom : </label>
-            <input type="text" name="prenom" id="prenom" required/><br/>
-            
-             <label for="mail">mail : </label>
-            <input type="text" name="mail" id="mail" required/><br/>
-            
-                  <label for="mdp">mdp : </label>
-            <input type="text" name="mdp" id="mdp" required/><br/>
-            
-            <input type="submit" />
-        </form>
-         </c:otherwise>
-     </c:choose> 
-     <ul>
-	    <c:forEach var="utilisateur" items="${ utilisateurs }">
-	    	<li>Hello <c:out value="${ utilisateur.mail }" /></li>
-	    </c:forEach>
-	</ul>    
-  <%@ include file ="pages/footer.jsp"  %>
+	<%@ include file="pages/navbar.jsp"%>
+	<br />
+	<br />
+	<br />
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<form class="form-horizontal" method="post"
+						action="creerUtilisateur">
+						<fieldset>
+							<legend class="text-center header">Inscrivez-vous</legend>
+
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-user bigicon"></i></span>
+								<div class="col-md-6">
+									<input type="text" name="nom" id="nom" required
+										placeholder="Nom" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-user bigicon"></i></span>
+								<div class="col-md-6">
+									<input type="text" name="prenom" id="prenom" required
+										placeholder="Prénom" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-envelope-o bigicon"></i></span>
+								<div class="col-md-6">
+									<input type="email" name="mail" id="mail" required
+										placeholder="Email" class="form-control"> <span
+										class="erreur" style="color: red">${errorMail}</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-phone-square bigicon"></i></span>
+								<div class="col-md-6">
+									<input type="password" name="mdp" id="mdp" required
+										placeholder="Mot de passe" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-12 text-center">
+									<button type="submit" class="btn btn-primary btn-lg">Valider</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ul>
+		<c:forEach var="utilisateur" items="${ utilisateurs }">
+			<li>Hello <c:out value="${ utilisateur.mail }" /></li>
+		</c:forEach>
+	</ul>
+
+
+	<style>
+.header {
+	color: #36A0FF;
+	font-size: 27px;
+	padding: 10px;
+}
+
+.bigicon {
+	font-size: 35px;
+	color: #36A0FF;
+}
+</style>
+	<%@ include file="pages/footer.jsp"%>

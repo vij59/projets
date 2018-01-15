@@ -10,4 +10,5 @@ public interface TopoDao {
 	    List<Topo> lister() throws DaoException;
 	    void reserverTopo(int idTopo) throws DaoException ;
 	     void rendreTopo(int idTopo) throws DaoException;
+	     String getNomSite(int idSite) throws DaoException;
 }

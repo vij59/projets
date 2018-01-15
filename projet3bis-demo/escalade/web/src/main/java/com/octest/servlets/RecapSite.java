@@ -173,8 +173,8 @@ public class RecapSite extends HttpServlet {
 		 */
 		
 		
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
+		request.setAttribute("siteFini", true);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/confirmationSite.jsp").forward(request, response);
 
 	}
 }

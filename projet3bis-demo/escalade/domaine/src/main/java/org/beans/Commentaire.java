@@ -7,6 +7,8 @@ public class Commentaire {
 
 	private int id;
 	private int idTopo;
+	private int idSite;
+	
 	private int idUtilisateur;
 	private String commentaire;
 	private Date date;
@@ -49,5 +51,11 @@ public class Commentaire {
 		this.commentaire = commentaire;
 	}
 	
+	public int getIdSite() {
+		return idSite;
+	}
+	public void setIdSite(int idSite) {
+		this.idSite = idSite;
+	}
 	
 }

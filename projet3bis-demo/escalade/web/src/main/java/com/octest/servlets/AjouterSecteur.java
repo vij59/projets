@@ -51,12 +51,16 @@ public class AjouterSecteur extends HttpServlet {
 		Secteur secteur = new Secteur();
 		secteur.setNom(request.getParameter("nom_secteur"));
 
+
 		Site site = (Site) session.getAttribute("site");
 
 		try {
-			if(request.getParameter("nom_secteur").isEmpty()){ System.out.println("longueur vide");}
+			char premiereLettreNom = request.getParameter("nom_secteur").charAt(0);
+			if(request.getParameter("nom_secteur").isEmpty() || premiereLettreNom ==' '){ System.out.println("longueur vide");
+			request.setAttribute("errorNom", "Secteur doit avoir un nom");}
 			else {
 				site.addSecteur(secteur);
+				request.setAttribute("affichage", 1);
 			}
 		}
 		catch (Exception e) {
@@ -71,15 +75,35 @@ public class AjouterSecteur extends HttpServlet {
 			i++;
 		}
 
-		request.setAttribute("secteurs", listeSecteurs);
-		session.setAttribute( "secteurs", listeSecteurs );
-		int j=0;
-		session.setAttribute( "numSecteur", j );
-		Secteur sec = (Secteur) listeSecteurs.get(0);
-		List <Secteur> listeSec = new ArrayList<Secteur>();
-		listeSec.add(sec);
-		request.setAttribute("sect", listeSec);
-		session.setAttribute("sect", listeSec);
+		try{
+			request.setAttribute("secteurs", listeSecteurs);
+			session.setAttribute( "secteurs", listeSecteurs );
+			int j=0;
+			session.setAttribute( "numSecteur", j );
+			Secteur sec = (Secteur) listeSecteurs.get(0);
+			List <Secteur> listeSec = new ArrayList<Secteur>();
+			listeSec.add(sec);
+			request.setAttribute("sect", listeSec);
+			session.setAttribute("sect", listeSec);
+
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			int k = Integer.parseInt(request.getParameter("reponse"));
+			if(k==1) {
+				site.removeSecteurs();
+				session.setAttribute("secteurs", null);
+				request.setAttribute("secteurs", null);
+				session.setAttribute("sect", null);
+				request.setAttribute("sect", null);
+				request.setAttribute("affichage", 0);
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
 
 
 

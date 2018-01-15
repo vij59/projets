@@ -57,6 +57,7 @@ public class CreerUtilisateur extends HttpServlet {
         		if(request.getParameter("mail").equals(user.getMail()))
         		{
         			mailExiste=true;
+        			request.setAttribute("errorMail", "Mail déjà enregistré dans la base");
         		}
         	}
         	
@@ -84,7 +85,7 @@ public class CreerUtilisateur extends HttpServlet {
 			}
 			else 
 			{
-				System.out.println("deja ce nom");
+				System.out.println("deja ce mail");
 			}
 		} catch (DaoException e1) {
 			// TODO Auto-generated catch block
