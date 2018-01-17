@@ -15,6 +15,12 @@
 	<br />
 	<br />
 
+	<script>
+		function stripspaces(input) {
+			input.value = input.value.replace(/\s/gi, "");
+			return true;
+		}
+	</script>
 
 	<c:choose>
 		<c:when test="${sessionUtilisateur.role != 1}">
@@ -34,7 +40,8 @@
 										<div class="col-md-6">
 											<input id="mail" name="mail" required
 												value="<c:out value="${utilisateur.mail}"/>" type="email"
-												placeholder="Email Address" class="form-control"> <span
+												placeholder="Email Address" class="form-control"
+												onkeydown="javascript:stripspaces(this)"> <span
 												class="erreur">${errorMail}</span>
 										</div>
 									</div>
@@ -44,7 +51,8 @@
 											class="fa fa-phone-square bigicon"></i></span>
 										<div class="col-md-6">
 											<input type="password" name="mdp" id="mdp" required
-												placeholder="Mot de passe" class="form-control"> <span
+												placeholder="Mot de passe" class="form-control"
+												onkeydown="javascript:stripspaces(this)"> <span
 												class="erreur">${ errorMdp }</span>
 										</div>
 									</div>
@@ -52,7 +60,8 @@
 										<p>
 											Pas encore inscrit ? <a href="/web/creerUtilisateur">Créez
 												votre espace</a>
-										</p><br/>
+										</p>
+										<br />
 									</center>
 
 									<div class="form-group">
@@ -60,7 +69,7 @@
 											<button type="submit" class="btn btn-primary btn-lg">Valider</button>
 										</div>
 									</div>
-									
+
 								</fieldset>
 							</form>
 						</div>
@@ -103,11 +112,7 @@
 
 
 
-	<ul>
-		<c:forEach var="utilisateur" items="${ utilisateurs }">
-			<li>Hello <c:out value="${ utilisateur.mail }" /></li>
-		</c:forEach>
-	</ul>
+
 
 </body>
 <%@ include file="pages/footer.jsp"%>

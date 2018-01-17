@@ -20,11 +20,12 @@
 			ajouté avec succès
 		</p>
 		<form action="sites" method="post">
-			<input type="submit" value="Voir Liste des sites"  class='btn btn-info'>
+			<input type="submit" value="Voir Liste des sites"
+				class='btn btn-info'>
 		</form>
 	</c:if>
-	
-	
+
+
 
 
 	<%@ include file="pages/footer.jsp"%>

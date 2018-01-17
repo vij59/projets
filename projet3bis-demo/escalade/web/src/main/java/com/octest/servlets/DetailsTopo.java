@@ -32,6 +32,7 @@ public class DetailsTopo extends HttpServlet {
 		this.commentaireDao = daoFactory.getCommentaireDao();
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -41,14 +42,16 @@ public class DetailsTopo extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		
+
 		try {
-			
+
 			request.setAttribute("topos", topoDao.lister());
 			request.setAttribute("commentaires", commentaireDao.lister());
 			request.setAttribute("utilisateurs", utilisateurDao.lister());
@@ -61,41 +64,38 @@ public class DetailsTopo extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int idTopo = 0;
-		String topoNom ="";
-		String nomSite= (String) session.getAttribute("nomDuSite");
-		int idSite=0;
+		String topoNom = "";
+		String nomSite = (String) session.getAttribute("nomDuSite");
+		int idSite = 0;
 		try {
-		idTopo = Integer.parseInt(request.getParameter("id_topo"));
-	
-		
+			idTopo = Integer.parseInt(request.getParameter("id_topo"));
+
+		} catch (Exception e) {
+			//System.out.println(e);
 		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-		
+
 		try {
-			for (Topo topo : topoDao.lister()) 
-			{
-				if(topo.getIdTopo() == idTopo) {
-					 topoNom = topo.getNomTopo();
+			for (Topo topo : topoDao.lister()) {
+				if (topo.getIdTopo() == idTopo) {
+					topoNom = topo.getNomTopo();
 					idSite = topo.getIdSite();
-					nomSite= topoDao.getNomSite(idSite);
+					nomSite = topoDao.getNomSite(idSite);
 				}
 			}
 		} catch (DaoException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
 
 		try {
-			
+
 			request.setAttribute("top", idTopo);
 			request.setAttribute("topoNom", topoNom);
 			request.setAttribute("nomSite", nomSite);
@@ -110,9 +110,7 @@ public class DetailsTopo extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-	
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/detailsTopo.jsp").forward(request, response);
 	}
 }

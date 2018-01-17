@@ -29,14 +29,14 @@
 	<div class="container">
 		<div class="col-md-12">
 			<table class="table table-striped custab">
-			<legend>Liste des sites</legend>
+				<legend>Liste des sites</legend>
 				<thead>
 					<tr>
 						<th>Nom site</th>
 						<th>Pays site</th>
 						<th>Region site</th>
 
-						<th >Action</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<c:forEach var="site" items="${ sites }">
@@ -51,7 +51,7 @@
 									type="submit" value="Détails" class='btn btn-info btn-xs'>
 							</form>
 						</td>
-						
+
 					</tr>
 				</c:forEach>
 			</table>

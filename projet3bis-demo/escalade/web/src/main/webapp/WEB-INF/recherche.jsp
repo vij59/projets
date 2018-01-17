@@ -24,7 +24,7 @@
 	color: #36A0FF;
 }
 </style>
-<script>
+	<script>
 		function stripspaces(input) {
 			input.value = input.value.replace(/\s/gi, "");
 			return true;
@@ -43,7 +43,7 @@
 		function changerListeRegion() {
 			var listePays = document.getElementById("pays");
 			var listeRegion = new Set();
-			 listeRegion = document.getElementById("region");
+			listeRegion = document.getElementById("region");
 			var selPays = listePays.options[listePays.selectedIndex].value;
 			while (listeRegion.options.length) {
 				listeRegion.remove(0);
@@ -57,12 +57,13 @@
 
 				if (pays) {
 					var i;
-					var k; var x =0;
+					var k;
+					var x = 0;
 					for (i = 0; i < pays.length; i++) {
-						
+
 						var region = new Option("${ site.region }");
 						listeRegion.options.add(region);
-						
+
 						/*
 						var k=0;
 						var mot= "";
@@ -70,14 +71,12 @@
 							mot = mot + listeRegion.options.value[k];
 						}
 						alert(mot);
-						*/
+						 */
 					}
 				}
 			}
 			</c:forEach>
 		}
-		
-		
 	</script>
 
 
@@ -93,8 +92,8 @@
 								<span class="col-md-1 col-md-offset-2 text-center"><i
 									class="fa fa-envelope-o bigicon"></i></span>
 								<div class="col-md-6">
-									<label for="pays">Pays </span></label> <br />
-									<select id="pays" name="pays" onchange="changerListeRegion()">
+									<label for="pays">Pays </span></label> <br /> <select id="pays"
+										name="pays" onchange="changerListeRegion()">
 										<option value="">TOUS LES PAYS</option>
 										<c:forEach var="pays" items="${ pays }">
 											<option value="${pays }">${pays }</option>
@@ -109,7 +108,8 @@
 									class="fa fa-envelope-o bigicon"></i></span>
 								<div class="col-md-6">
 									<label for="region">Region </span></label><br /> <select id="region"
-										name="region"><option value="">TOUTES LES REGIONS</option></select>
+										name="region"><option value="">TOUTES LES
+											REGIONS</option></select>
 
 								</div>
 							</div>
@@ -152,44 +152,44 @@
 		</div>
 	</div>
 
-<c:if test="${ affiche == 1}">
-	<div class="container">
-		<div class="col-md-12">
-			<table class="table table-striped custab">
-			<legend>Liste des sites</legend>
-				<thead>
-					<tr>
-						<th>Nom site</th>
-						<th>Pays site</th>
-						<th>Region site</th>
+	<c:if test="${ affiche == 1}">
+		<div class="container">
+			<div class="col-md-12">
+				<table class="table table-striped custab">
+					<legend>Liste des sites</legend>
+					<thead>
+						<tr>
+							<th>Nom site</th>
+							<th>Pays site</th>
+							<th>Region site</th>
 
-						<th >Action</th>
-					</tr>
-				</thead>
-				<c:forEach var="site" items="${ siteRecherché }">
-					<tr>
-						<td><c:out value="${ site.nomSite }" /></td>
-						<td><c:out value="${ site.pays }" /></td>
-						<td><c:out value="${ site.region }" /></td>
-						<td>
-							<form method="post" action="detailsSite">
-								<input type="text" id="id" name="id"
-									value="<c:out value="${ site.id }" />" hidden> <input
-									type="submit" value="Détails" class='btn btn-info btn-xs'>
-							</form>
-						</td>
-						<td class="text-center"><a class='btn btn-info btn-xs'
-							href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-							<a href="#" class="btn btn-danger btn-xs"><span
-								class="glyphicon glyphicon-remove"></span> Del</a></td>
-					</tr>
-				</c:forEach>
-			</table>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<c:forEach var="site" items="${ siteRecherché }">
+						<tr>
+							<td><c:out value="${ site.nomSite }" /></td>
+							<td><c:out value="${ site.pays }" /></td>
+							<td><c:out value="${ site.region }" /></td>
+							<td>
+								<form method="post" action="detailsSite">
+									<input type="text" id="id" name="id"
+										value="<c:out value="${ site.id }" />" hidden> <input
+										type="submit" value="Détails" class='btn btn-info btn-xs'>
+								</form>
+							</td>
+							<td class="text-center"><a class='btn btn-info btn-xs'
+								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+								<a href="#" class="btn btn-danger btn-xs"><span
+									class="glyphicon glyphicon-remove"></span> Del</a></td>
+						</tr>
+					</c:forEach>
+				</table>
 
+			</div>
 		</div>
-	</div>
-	</div>
-</c:if>
+		</div>
+	</c:if>
 
 
 	<%@ include file="pages/footer.jsp"%>

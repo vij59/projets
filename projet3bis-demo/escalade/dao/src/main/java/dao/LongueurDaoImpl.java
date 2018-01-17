@@ -12,7 +12,7 @@ import org.beans.Longueur;
 import org.beans.Secteur;
 import org.beans.Voie;
 
-public class LongueurDaoImpl  implements LongueurDao {
+public class LongueurDaoImpl implements LongueurDao {
 	private DaoFactory daoFactory;
 	private LongueurDao longueurDao;
 
@@ -20,13 +20,14 @@ public class LongueurDaoImpl  implements LongueurDao {
 		this.daoFactory = daoFactory;
 	}
 
-	public void ajouterLongueur (Longueur longueur, Voie voie) throws DaoException {
+	public void ajouterLongueur(Longueur longueur, Voie voie) throws DaoException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("INSERT INTO longueur(nom, cotation, id_voie) VALUES(?, ?, ?);");
+			preparedStatement = connexion
+					.prepareStatement("INSERT INTO longueur(nom, cotation, id_voie) VALUES(?, ?, ?);");
 			preparedStatement.setString(1, longueur.getNom().toUpperCase());
 			preparedStatement.setString(2, longueur.getCotation().toUpperCase());
 			preparedStatement.setInt(3, voie.getId());
@@ -41,11 +42,10 @@ public class LongueurDaoImpl  implements LongueurDao {
 			} catch (SQLException e2) {
 			}
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -83,11 +83,10 @@ public class LongueurDaoImpl  implements LongueurDao {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -110,8 +109,7 @@ public class LongueurDaoImpl  implements LongueurDao {
 
 			while (resultat.next()) {
 
-				if(idVoie == resultat.getInt("id_voie")) 
-				{
+				if (idVoie == resultat.getInt("id_voie")) {
 					idLongueur = resultat.getInt("id_longueur");
 					idVoie = resultat.getInt("id_voie");
 
@@ -122,11 +120,10 @@ public class LongueurDaoImpl  implements LongueurDao {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -134,7 +131,5 @@ public class LongueurDaoImpl  implements LongueurDao {
 		}
 		return idLongueur;
 	}
-
-
 
 }

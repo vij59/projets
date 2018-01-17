@@ -11,7 +11,7 @@ import java.util.List;
 import org.beans.BeanException;
 import org.beans.Site;
 
-public class SiteDaoImpl  implements SiteDao {
+public class SiteDaoImpl implements SiteDao {
 	private DaoFactory daoFactory;
 	private SiteDao siteDao;
 
@@ -19,7 +19,7 @@ public class SiteDaoImpl  implements SiteDao {
 		this.daoFactory = daoFactory;
 	}
 
-	public void ajouterSite (Site site) throws DaoException {
+	public void ajouterSite(Site site) throws DaoException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
@@ -29,7 +29,6 @@ public class SiteDaoImpl  implements SiteDao {
 			preparedStatement.setString(1, site.getNomSite().toUpperCase());
 			preparedStatement.setString(2, site.getPays().toUpperCase());
 			preparedStatement.setString(3, site.getRegion().toUpperCase());
-
 
 			preparedStatement.executeUpdate();
 			connexion.commit();
@@ -41,11 +40,10 @@ public class SiteDaoImpl  implements SiteDao {
 			} catch (SQLException e2) {
 			}
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -63,7 +61,7 @@ public class SiteDaoImpl  implements SiteDao {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id_site,nom, pays, region FROM site;");
+			resultat = statement.executeQuery("SELECT id_site,nom, pays, region FROM site ORDER BY pays;");
 
 			while (resultat.next()) {
 				int idSite = resultat.getInt("id_site");
@@ -72,13 +70,11 @@ public class SiteDaoImpl  implements SiteDao {
 
 				String region = resultat.getString("region");
 
-
 				Site site = new Site();
 				site.setId(idSite);
 				site.setNomSite(nomSite);
 				site.setPays(pays);
 				site.setRegion(region);
-
 
 				sites.add(site);
 			}
@@ -86,11 +82,10 @@ public class SiteDaoImpl  implements SiteDao {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -111,19 +106,17 @@ public class SiteDaoImpl  implements SiteDao {
 			resultat = statement.executeQuery("SELECT distinct   region, pays, nom FROM site ;");
 
 			while (resultat.next()) {
-				
+
 				String nomSite = resultat.getString("nom");
 				String pays = resultat.getString("pays");
 
 				String region = resultat.getString("region");
 
-
 				Site site = new Site();
-			
+
 				site.setNomSite(nomSite);
 				site.setPays(pays);
 				site.setRegion(region);
-
 
 				sites.add(site);
 			}
@@ -131,11 +124,10 @@ public class SiteDaoImpl  implements SiteDao {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -143,7 +135,7 @@ public class SiteDaoImpl  implements SiteDao {
 		}
 		return sites;
 	}
-	
+
 	public int recupererIdSite(Site site) throws DaoException {
 		Connection connexion = null;
 		Statement statement = null;
@@ -156,14 +148,14 @@ public class SiteDaoImpl  implements SiteDao {
 			resultat = statement.executeQuery("SELECT id_site,nom, pays, region FROM site;");
 
 			while (resultat.next()) {
-				 idSite = resultat.getInt("id_site");
+				idSite = resultat.getInt("id_site");
 				String nomSite = resultat.getString("nom");
 				String pays = resultat.getString("pays");
 
 				String region = resultat.getString("region");
 
-				if ((site.getNomSite().equals(nomSite)) && (site.getRegion().equals(region)) && (site.getPays().equals(pays))) 
-				{
+				if ((site.getNomSite().equals(nomSite)) && (site.getRegion().equals(region))
+						&& (site.getPays().equals(pays))) {
 					Site site2 = new Site();
 					site2.setId(idSite);
 					site2.setNomSite(nomSite);
@@ -171,17 +163,16 @@ public class SiteDaoImpl  implements SiteDao {
 					site2.setRegion(region);
 
 				}
-				
+
 			}
 		} catch (SQLException e) {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");

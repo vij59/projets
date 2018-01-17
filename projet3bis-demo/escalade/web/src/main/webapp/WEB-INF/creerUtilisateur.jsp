@@ -11,7 +11,12 @@
 	<br />
 	<br />
 	<br />
-
+	<script>
+		function stripspaces(input) {
+			input.value = input.value.replace(/\s/gi, "");
+			return true;
+		}
+	</script>
 
 	<div class="container">
 		<div class="row">
@@ -27,7 +32,9 @@
 									class="fa fa-user bigicon"></i></span>
 								<div class="col-md-6">
 									<input type="text" name="nom" id="nom" required
-										placeholder="Nom" class="form-control">
+										placeholder="Nom" class="form-control"
+										onkeydown="javascript:stripspaces(this)"> <span
+										class="erreur" style="color: red">${errorNom}</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -35,7 +42,9 @@
 									class="fa fa-user bigicon"></i></span>
 								<div class="col-md-6">
 									<input type="text" name="prenom" id="prenom" required
-										placeholder="Prénom" class="form-control">
+										placeholder="Prénom" class="form-control"
+										onkeydown="javascript:stripspaces(this)"> <span
+										class="erreur" style="color: red">${errorPrenom}</span>
 								</div>
 							</div>
 
@@ -44,7 +53,8 @@
 									class="fa fa-envelope-o bigicon"></i></span>
 								<div class="col-md-6">
 									<input type="email" name="mail" id="mail" required
-										placeholder="Email" class="form-control"> <span
+										placeholder="Email" class="form-control"
+										onkeydown="javascript:stripspaces(this)"> <span
 										class="erreur" style="color: red">${errorMail}</span>
 								</div>
 							</div>
@@ -54,7 +64,9 @@
 									class="fa fa-phone-square bigicon"></i></span>
 								<div class="col-md-6">
 									<input type="password" name="mdp" id="mdp" required
-										placeholder="Mot de passe" class="form-control">
+										placeholder="Mot de passe" class="form-control"
+										onkeydown="javascript:stripspaces(this)"> <span
+										class="erreur" style="color: red">${errorMdp}</span>
 								</div>
 							</div>
 
@@ -69,12 +81,6 @@
 			</div>
 		</div>
 	</div>
-
-	<ul>
-		<c:forEach var="utilisateur" items="${ utilisateurs }">
-			<li>Hello <c:out value="${ utilisateur.mail }" /></li>
-		</c:forEach>
-	</ul>
 
 
 	<style>

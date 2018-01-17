@@ -30,58 +30,58 @@
 			return true;
 		}
 	</script>
-	
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="well well-sm">
-							<form class="form-horizontal" method="post" action="ajouterVoie">
-								<fieldset>
-									<legend class="text-center header">
-										Site
-										<c:out value="${ site.nomSite }" />
-										--- Secteur
-										<c:out value="${site.secteurs[numSecteur].nom}" />
 
-									</legend>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<form class="form-horizontal" method="post" action="ajouterVoie">
+						<fieldset>
+							<legend class="text-center header">
+								Site
+								<c:out value="${ site.nomSite }" />
+								--- Secteur
+								<c:out value="${site.secteurs[numSecteur].nom}" />
 
-									<div class="form-group">
-										<span class="col-md-1 col-md-offset-2 text-center"><i
-											class="fa fa-envelope-o bigicon"></i></span>
-										<div class="col-md-6">
-											<label for="nom_voie">Nom voie : </label> <input type="text"
-												name="nom_voie" id="nom_voie" required
-												placeholder="Nom de la voie" class="form-control"
-												onkeydown="javascript:stripspaces(this)" /> <span
-												class="erreur" style="color:red">${errorNom}</span>
-										</div>
-									</div>
+							</legend>
 
-									<div class="form-group">
-										<span class="col-md-1 col-md-offset-2 text-center"><i
-											class="fa fa-envelope-o bigicon"></i></span>
-										<div class="col-md-6">
-											<label for="nom_voie">Cotation : </label> <input type="text"
-												name="cotation" id="cotation" required
-												placeholder="Cotation de la voie" class="form-control"
-												onkeydown="javascript:stripspaces(this)" /> <span
-												class="erreur" style="color:red">${errorCotation}</span>
-										</div>
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-envelope-o bigicon"></i></span>
+								<div class="col-md-6">
+									<label for="nom_voie">Nom voie : </label> <input type="text"
+										name="nom_voie" id="nom_voie" required
+										placeholder="Nom de la voie" class="form-control"
+										onkeydown="javascript:stripspaces(this)" /> <span
+										class="erreur" style="color: red">${errorNom}</span>
+								</div>
+							</div>
 
-									</div>
+							<div class="form-group">
+								<span class="col-md-1 col-md-offset-2 text-center"><i
+									class="fa fa-envelope-o bigicon"></i></span>
+								<div class="col-md-6">
+									<label for="nom_voie">Cotation : </label> <input type="text"
+										name="cotation" id="cotation" required
+										placeholder="Cotation de la voie" class="form-control"
+										onkeydown="javascript:stripspaces(this)" /> <span
+										class="erreur" style="color: red">${errorCotation}</span>
+								</div>
 
-									<div class="form-group">
-										<div class="col-md-12 text-center">
-											<button type="submit" class="btn btn-primary"
-												value="ajouter la voie">Ajouter Voie</button>
-										</div>
-									</div>
-								</fieldset>
-							</form>
-						</div>
-					</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-12 text-center">
+									<button type="submit" class="btn btn-primary"
+										value="ajouter la voie">Ajouter Voie</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>
 				</div>
 			</div>
+		</div>
+	</div>
 
 
 	<c:if test="${ affichage == 1}">

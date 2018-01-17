@@ -90,7 +90,8 @@
 		</c:when>
 		<c:otherwise>
 			<center>
-			<a href="betaConn" class="btn btn-primary" style="margin-top :10%" >Connectez-vous d'abord</a>
+				<a href="betaConn" class="btn btn-primary" style="margin-top: 10%">Connectez-vous
+					d'abord</a>
 			</center>
 		</c:otherwise>
 

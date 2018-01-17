@@ -2,7 +2,6 @@ package com.octest.servlets;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,54 +15,51 @@ import org.beans.Utilisateur;
 
 import beans.Noms;
 
-
 /**
  * Servlet implementation class Test
  */
 @WebServlet("/Test")
 public class Test extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    
-       
-    public Test() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Pseudo tableNoms = new Pseudo();
-        try {
+	public Test() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Pseudo tableNoms = new Pseudo();
+		try {
 			request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
 		} catch (BeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
-    }
+		this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+	}
 
-    public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        Utilisateur utilisateur = new Utilisateur();
-        try {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utilisateur utilisateur = new Utilisateur();
+		try {
 			utilisateur.setNom(request.getParameter("nom"));
 		} catch (BeanException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        utilisateur.setPrenom(request.getParameter("prenom"));
-        
-        Noms tableNoms = new Noms();
-        tableNoms.ajouterUtilisateur(utilisateur);
-        
-        try {
+		utilisateur.setPrenom(request.getParameter("prenom"));
+
+		Noms tableNoms = new Noms();
+		tableNoms.ajouterUtilisateur(utilisateur);
+
+		try {
 			request.setAttribute("utilisateurs", tableNoms.recupererUtilisateurs());
 		} catch (BeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
-    }
-    
-    
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/bonjour.jsp").forward(request, response);
+	}
 
 }

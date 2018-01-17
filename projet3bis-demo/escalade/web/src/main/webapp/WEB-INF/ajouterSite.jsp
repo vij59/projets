@@ -24,7 +24,7 @@
 	color: #36A0FF;
 }
 </style>
-<script>
+	<script>
 		function stripspaces(input) {
 			input.value = input.value.replace(/\s/gi, "");
 			return true;
@@ -47,9 +47,9 @@
 											<div class="col-md-6">
 												<label for="nom_site">Nom du site : </label> <input
 													type="text" name="nom_site" id="nom_site" required
-													placeholder="Nom du site" class="form-control" onkeydown="javascript:stripspaces(this)"/>
-													<span
-										class="erreur" style="color: red">${errorNom}</span>
+													placeholder="Nom du site" class="form-control"
+													onkeydown="javascript:stripspaces(this)" /> <span
+													class="erreur" style="color: red">${errorNom}</span>
 
 											</div>
 										</div>
@@ -60,9 +60,9 @@
 											<div class="col-md-6">
 												<label for="pays">Pays : </label> <input type="text"
 													name="pays" id="pays" required placeholder="Pays du site"
-													class="form-control" onkeydown="javascript:stripspaces(this)"/>
-													<span
-										class="erreur" style="color: red">${errorPays}</span>
+													class="form-control"
+													onkeydown="javascript:stripspaces(this)" /> <span
+													class="erreur" style="color: red">${errorPays}</span>
 
 											</div>
 										</div>
@@ -73,9 +73,9 @@
 											<div class="col-md-6">
 												<label for="region">Région : </label> <input type="text"
 													name="region" id="region" required
-													placeholder="Région du site" class="form-control" onkeydown="javascript:stripspaces(this)"/>
-													<span
-										class="erreur" style="color: red">${errorRegion}</span>
+													placeholder="Région du site" class="form-control"
+													onkeydown="javascript:stripspaces(this)" /> <span
+													class="erreur" style="color: red">${errorRegion}</span>
 
 											</div>
 										</div>
@@ -110,8 +110,7 @@
 											<span class="col-md-1 col-md-offset-4 text-center"><i
 												class="fa fa-envelope-o bigicon"></i></span>
 											<div class="col-md-6">
-												Nom du site :
-												<b><c:out value="${ site.nomSite }" /></b>
+												Nom du site : <b><c:out value="${ site.nomSite }" /></b>
 
 											</div>
 										</div>
@@ -120,8 +119,7 @@
 											<span class="col-md-1 col-md-offset-4 text-center"><i
 												class="fa fa-envelope-o bigicon"></i></span>
 											<div class="col-md-6">
-												Pays :
-												<b><c:out value="${ site.pays }" /></b>
+												Pays : <b><c:out value="${ site.pays }" /></b>
 
 											</div>
 										</div>
@@ -130,8 +128,7 @@
 											<span class="col-md-1 col-md-offset-4 text-center"><i
 												class="fa fa-envelope-o bigicon"></i></span>
 											<div class="col-md-6">
-												Région :
-												<b><c:out value="${ site.region }" /></b>
+												Région : <b><c:out value="${ site.region }" /></b>
 
 											</div>
 										</div>
@@ -168,7 +165,8 @@
 		</c:when>
 		<c:otherwise>
 			<center>
-			<a href="betaConn" class="btn btn-primary" style="margin-top :10%" >Connectez-vous d'abord</a>
+				<a href="betaConn" class="btn btn-primary" style="margin-top: 10%">Connectez-vous
+					d'abord</a>
 			</center>
 		</c:otherwise>
 

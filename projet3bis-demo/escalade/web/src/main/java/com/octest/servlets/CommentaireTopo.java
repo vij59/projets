@@ -23,7 +23,6 @@ import dao.TopoDao;
 import dao.UtilisateurDao;
 import dao.CommentaireDao;
 
-
 /**
  * Servlet implementation class Topos
  */
@@ -32,13 +31,14 @@ public class CommentaireTopo extends HttpServlet {
 	private TopoDao topoDao;
 	private CommentaireDao commentaireDao;
 	private UtilisateurDao utilisateurDao;
-	
+
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		this.topoDao = daoFactory.getTopoDao();
 		this.commentaireDao = daoFactory.getCommentaireDao();
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -48,9 +48,11 @@ public class CommentaireTopo extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
 			session.setAttribute("commentaires", commentaireDao.lister());
@@ -60,47 +62,42 @@ public class CommentaireTopo extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireTopo.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur = (Utilisateur) session.getAttribute( "sessionUtilisateur" );
-		System.out.println("id user");
-		System.out.println(utilisateur.getId());
-		
+		utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+		//System.out.println("id user");
+		//System.out.println(utilisateur.getId());
+
 		try {
-		int idTopo =  (Integer) session.getAttribute("top");
-		
-		
-		System.out.println("id topo");
-		System.out.println(idTopo);
-		
-		Commentaire commentaire = new Commentaire();
-		String comment = request.getParameter("comment");
-		commentaire.setCommentaire(comment);
-		commentaire.setIdUtilisateur(utilisateur.getId());
-		commentaire.setIdTopo(idTopo);
-		
-		if(comment.equals("")) {
-			System.out.println("pas de commentaire");
+			int idTopo = (Integer) session.getAttribute("top");
+
+			//System.out.println("id topo");
+			//System.out.println(idTopo);
+
+			Commentaire commentaire = new Commentaire();
+			String comment = request.getParameter("comment");
+			commentaire.setCommentaire(comment);
+			commentaire.setIdUtilisateur(utilisateur.getId());
+			commentaire.setIdTopo(idTopo);
+
+			if (comment.equals("")) {
+				//System.out.println("pas de commentaire");
+			} else {
+				commentaireDao.ajouterCommentaire(commentaire);
+			}
+		} catch (Exception e) {
+			//System.out.println(e.getMessage());
 		}
-		else {
-		commentaireDao.ajouterCommentaire(commentaire);
-		}
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-		
-		
-		
 
 		try {
 			request.setAttribute("topos", topoDao.lister());
@@ -110,8 +107,7 @@ public class CommentaireTopo extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireTopo.jsp").forward(request, response);
 	}
 }

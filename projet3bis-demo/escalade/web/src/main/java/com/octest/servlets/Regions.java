@@ -45,6 +45,7 @@ public class Regions extends HttpServlet {
 		this.voieDao = daoFactory.getVoieDao();
 		this.longueurDao = daoFactory.getLongueurDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -54,86 +55,79 @@ public class Regions extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String pays = request.getParameter("pays");
-		
-		
-		
-			Set<String>listePays = new HashSet<String>();
-			Set<String>listeRegions = new HashSet<String>();
-			try {
-				for (Site site : siteDao.lister())
-				{
-					if (site.getPays()==pays) {
-						listeRegions.add(site.getRegion());
-					}
-					String country = site.getPays();
-					listePays.add(country);
-					
-				}
-			} catch (DaoException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			try {
-				request.setAttribute("pays", listePays);
-				request.setAttribute("regions", listeRegions);
-				request.setAttribute("sites", siteDao.lister());
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		String pays = request.getParameter("pays");
 
+		Set<String> listePays = new HashSet<String>();
+		Set<String> listeRegions = new HashSet<String>();
+		try {
+			for (Site site : siteDao.lister()) {
+				if (site.getPays() == pays) {
+					listeRegions.add(site.getRegion());
+				}
+				String country = site.getPays();
+				listePays.add(country);
+
+			}
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			request.setAttribute("pays", listePays);
+			request.setAttribute("regions", listeRegions);
+			request.setAttribute("sites", siteDao.lister());
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/recherche.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 * 
 	 * 
 	 */
-	
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String pays = request.getParameter("pays");
-		
-		
-		
-			Set<String>listePays = new HashSet<String>();
-			Set<String>listeRegions = new HashSet<String>();
-			try {
-				for (Site site : siteDao.lister())
-				{
-					if (site.getPays()==pays) {
-						listeRegions.add(site.getRegion());
-					}
-					String country = site.getPays();
-					listePays.add(country);
-					
-				}
-			} catch (DaoException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			try {
-				request.setAttribute("pays", listePays);
-				request.setAttribute("regions", listeRegions);
-				request.setAttribute("sites", siteDao.lister());
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
-			this.getServletContext().getRequestDispatcher("/WEB-INF/recherche.jsp").forward(request, response);
+		Set<String> listePays = new HashSet<String>();
+		Set<String> listeRegions = new HashSet<String>();
+		try {
+			for (Site site : siteDao.lister()) {
+				if (site.getPays() == pays) {
+					listeRegions.add(site.getRegion());
+				}
+				String country = site.getPays();
+				listePays.add(country);
+
+			}
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
+		try {
+			request.setAttribute("pays", listePays);
+			request.setAttribute("regions", listeRegions);
+			request.setAttribute("sites", siteDao.lister());
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/recherche.jsp").forward(request, response);
 	}
+}

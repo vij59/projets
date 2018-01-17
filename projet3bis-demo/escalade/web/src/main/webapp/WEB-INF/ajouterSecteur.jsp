@@ -39,7 +39,7 @@
 										type="text" name="nom_secteur" id="nom_secteur" required
 										placeholder="Nom du secteur" class="form-control"
 										onkeydown="javascript:stripspaces(this)" /> <span
-										class="erreur" style="color:red">${errorNom}</span>
+										class="erreur" style="color: red">${errorNom}</span>
 
 								</div>
 							</div>
@@ -76,12 +76,12 @@
 							<td><c:out value="${ secteur.id + 1}" /></td>
 							<td><c:out value="${ secteur.nom }" /></td>
 							<td></td>
-							<form method ="post" action="SupprimerSecteur">
-							<td class="text-center"><a class='btn btn-info btn-xs'
-								href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-								<a href="#" class="btn btn-danger btn-xs"><span
-									class="glyphicon glyphicon-remove"></span> Del</a></td>
-									</form>
+							<form method="post" action="SupprimerSecteur">
+								<td class="text-center"><a class='btn btn-info btn-xs'
+									href="#"><span class="glyphicon glyphicon-edit"></span>
+										Edit</a> <a href="#" class="btn btn-danger btn-xs"><span
+										class="glyphicon glyphicon-remove"></span> Del</a></td>
+							</form>
 						</tr>
 					</c:forEach>
 				</table>

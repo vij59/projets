@@ -13,23 +13,24 @@
 	<br />
 	<br />
 
+
 	<c:set var="top" scope="page" value="${top}" />
 	<div class="col-lg-6 col-md-7 col-xs-10">
 		<form action="detailsSite" method="post">
-		<h1>
-		<c:out value="${ topoNom }" />
-		topo du site
-		
+			<h1>
+				"
+				<c:out value="${ topoNom }" />
+				" topo du site
 
-			<button type="submit" id="id" name="id" type="hidden"
-				value="<c:out value="${ idSite }" />" class='btn btn-info  btn-lg' ><c:out value="${ nomSite }" /></button>
+
+				<button type="submit" id="id" name="id" type="hidden"
+					value="<c:out value="${ idSite }" />" class='btn btn-info  btn-lg'>
+					<c:out value="${ nomSite }" />
+				</button>
 		</form>
-</h1>
+		</h1>
 
-		<legend>
-			Avis 
-			
-		</legend>
+		<legend> Avis </legend>
 
 
 		<c:forEach var="commentaire" items="${ commentaires }">
@@ -40,24 +41,23 @@
 
 
 						<div class="comments-list">
-							<div class="media"><c:if test="${ utilisateur.id == sessionUtilisateur.id }">
-											<form action="SupprimerCommentaireTopo" method="post" id="usrform">
-											<p class="pull-right">
-													<small><c:out value="${ commentaire.date }" /></small>
-													<br/>
-													<input type="text" id="cache" name="cache"
-									value="2" hidden> 
-													<input type="text" id="nomSite" name="nomSite"
-									value="${ nomSite }" hidden> 
-									<input type="text" id="idTopo" name="idTopo"
-									value="${ top }" hidden> 
-									
-													<input type="text" value="${ commentaire.id }" hidden name="idCommentaire" id="idCommentaire">
-														<small><button type="submit" class="btn btn-default btn-xs ">Supprimer</button></small>
-														
-												</p>
-												</form>
-										</c:if>
+							<div class="media">
+								<c:if test="${ utilisateur.id == sessionUtilisateur.id }">
+									<form action="SupprimerCommentaireTopo" method="post"
+										id="usrform">
+										<p class="pull-right">
+											<small><c:out value="${ commentaire.date }" /></small> <br />
+											<input type="text" id="cache" name="cache" value="2" hidden>
+											<input type="text" id="nomSite" name="nomSite"
+												value="${ nomSite }" hidden> <input type="text"
+												id="idTopo" name="idTopo" value="${ top }" hidden> <input
+												type="text" value="${ commentaire.id }" hidden
+												name="idCommentaire" id="idCommentaire"> <small><button
+													type="submit" class="btn btn-default btn-xs ">Supprimer</button></small>
+
+										</p>
+									</form>
+								</c:if>
 								<div class="media-body">
 
 									<h4 class="media-heading user_name">
@@ -81,9 +81,13 @@
 
 	</div>
 	<div class="col-lg-6 col-md-5 col-xs-2">
-	<h1><h2><a href="topos" class='btn btn-warning '> Voir disponibilités</a></h2></h1>
+		<h1>
+			<h2>
+				<a href="topos" class='btn btn-warning '> Voir disponibilités</a>
+			</h2>
+		</h1>
 	</div>
-	
+
 	</div>
 	</div>
 

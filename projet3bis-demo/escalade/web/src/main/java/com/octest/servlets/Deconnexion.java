@@ -25,12 +25,13 @@ public class Deconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UtilisateurDao utilisateurDao;
 	public static final String ATT_SESSION_USER = "sessionUtilisateur";
-	public static final String ATT_USER         = "utilisateur";
+	public static final String ATT_USER = "utilisateur";
 
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -40,9 +41,11 @@ public class Deconnexion extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			request.setAttribute("utilisateurs", utilisateurDao.lister());
@@ -53,13 +56,11 @@ public class Deconnexion extends HttpServlet {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/deconnexion.jsp").forward(request, response);
 	}
 
-	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utilisateur utilisateur = new Utilisateur();
-		
+
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
-
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/deconnexion.jsp").forward(request, response);
 	}

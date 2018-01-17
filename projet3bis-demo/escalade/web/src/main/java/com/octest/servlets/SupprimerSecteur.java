@@ -17,7 +17,6 @@ import dao.DaoException;
 import dao.DaoFactory;
 import dao.SecteurDao;
 
-
 /**
  * Servlet implementation class Secteur
  */
@@ -33,50 +32,48 @@ public class SupprimerSecteur extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSecteur.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Secteur secteur = new Secteur();
 		HttpSession session = request.getSession();
-		
+
 		Site site = (Site) session.getAttribute("site");
-		
-		
+
 		Secteur secteur = new Secteur();
-		
-		int i =0;
+
+		int i = 0;
 		List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-		for( Secteur s : site.getSecteurs()) {
+		for (Secteur s : site.getSecteurs()) {
 			s.setId(i);
 			listeSecteurs.add(s);
 			i++;
 		}
-		for(Secteur sect : listeSecteurs) 
-		{
-			if(sect.getId() == Integer.parseInt(request.getParameter("secteurToDelete")))
-			{
+		for (Secteur sect : listeSecteurs) {
+			if (sect.getId() == Integer.parseInt(request.getParameter("secteurToDelete"))) {
 				listeSecteurs.remove(sect);
 				site.removeSecteur(sect);
 			}
 		}
-		
-				
-		
+
 		request.setAttribute("secteurs", listeSecteurs);
-		session.setAttribute( "secteurs", listeSecteurs );
+		session.setAttribute("secteurs", listeSecteurs);
 		request.setAttribute("site", site);
-		session.setAttribute( "site", site );
-		
+		session.setAttribute("site", site);
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSecteur.jsp").forward(request, response);
 	}
 }

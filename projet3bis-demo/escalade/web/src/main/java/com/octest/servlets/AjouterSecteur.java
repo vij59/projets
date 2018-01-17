@@ -17,7 +17,6 @@ import dao.DaoException;
 import dao.DaoFactory;
 import dao.SecteurDao;
 
-
 /**
  * Servlet implementation class Secteur
  */
@@ -33,66 +32,67 @@ public class AjouterSecteur extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSecteur.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// Secteur secteur = new Secteur();
 		HttpSession session = request.getSession();
 		Secteur secteur = new Secteur();
 		secteur.setNom(request.getParameter("nom_secteur"));
 
-
 		Site site = (Site) session.getAttribute("site");
 
 		try {
 			char premiereLettreNom = request.getParameter("nom_secteur").charAt(0);
-			if(request.getParameter("nom_secteur").isEmpty() || premiereLettreNom ==' '){ System.out.println("longueur vide");
-			request.setAttribute("errorNom", "Secteur doit avoir un nom");}
-			else {
+			if (request.getParameter("nom_secteur").isEmpty() || premiereLettreNom == ' ') {
+				//System.out.println("longueur vide");
+				request.setAttribute("errorNom", "Secteur doit avoir un nom");
+			} else {
 				site.addSecteur(secteur);
 				request.setAttribute("affichage", 1);
 			}
-		}
-		catch (Exception e) {
-			System.out.println("catch erreur longueur");
+		} catch (Exception e) {
+			//System.out.println("catch erreur longueur");
 		}
 
-		int i =0;
+		int i = 0;
 		List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-		for( Secteur s : site.getSecteurs()) {
+		for (Secteur s : site.getSecteurs()) {
 			s.setId(i);
 			listeSecteurs.add(s);
 			i++;
 		}
 
-		try{
+		try {
 			request.setAttribute("secteurs", listeSecteurs);
-			session.setAttribute( "secteurs", listeSecteurs );
-			int j=0;
-			session.setAttribute( "numSecteur", j );
+			session.setAttribute("secteurs", listeSecteurs);
+			int j = 0;
+			session.setAttribute("numSecteur", j);
 			Secteur sec = (Secteur) listeSecteurs.get(0);
-			List <Secteur> listeSec = new ArrayList<Secteur>();
+			List<Secteur> listeSec = new ArrayList<Secteur>();
 			listeSec.add(sec);
 			request.setAttribute("sect", listeSec);
 			session.setAttribute("sect", listeSec);
 
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			//System.out.println(e.getMessage());
 		}
 		try {
 			int k = Integer.parseInt(request.getParameter("reponse"));
-			if(k==1) {
+			if (k == 1) {
 				site.removeSecteurs();
 				session.setAttribute("secteurs", null);
 				request.setAttribute("secteurs", null);
@@ -100,12 +100,9 @@ public class AjouterSecteur extends HttpServlet {
 				request.setAttribute("sect", null);
 				request.setAttribute("affichage", 0);
 			}
+		} catch (Exception e) {
+			//System.out.println(e);
 		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-
-
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterSecteur.jsp").forward(request, response);
 	}

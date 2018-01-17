@@ -21,52 +21,56 @@ import dao.UtilisateurDao;
  */
 public class Sites extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private SiteDao siteDao;
 
-    public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        this.siteDao = daoFactory.getSiteDao();
-    }
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Sites() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public void init() throws ServletException {
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		this.siteDao = daoFactory.getSiteDao();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Sites() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		  
-        try {
+
+		try {
 			request.setAttribute("sites", siteDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       
-        this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
-    }
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session   = request.getSession();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		session.removeAttribute("site");
-		
-        
-        try {
+
+		try {
 			request.setAttribute("sites", siteDao.lister());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       
-        this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
-    }
+
+		this.getServletContext().getRequestDispatcher("/WEB-INF/sites.jsp").forward(request, response);
+	}
 }

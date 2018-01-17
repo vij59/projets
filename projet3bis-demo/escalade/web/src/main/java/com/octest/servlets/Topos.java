@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.beans.Topo;
 
-
 import dao.DaoException;
 import dao.DaoFactory;
 import dao.SiteDao;
 import dao.TopoDao;
-
 
 /**
  * Servlet implementation class Topos
@@ -26,8 +24,9 @@ public class Topos extends HttpServlet {
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		this.topoDao = daoFactory.getTopoDao();
-		 this.siteDao = daoFactory.getSiteDao();
+		this.siteDao = daoFactory.getSiteDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,17 +36,19 @@ public class Topos extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		 try {
-				request.setAttribute("sites", siteDao.lister());
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			request.setAttribute("sites", siteDao.lister());
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		try {
 			request.setAttribute("topos", topoDao.lister());
 		} catch (DaoException e) {
@@ -58,17 +59,18 @@ public class Topos extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		 try {
-				request.setAttribute("sites", siteDao.lister());
-			} catch (DaoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			request.setAttribute("sites", siteDao.lister());
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			request.setAttribute("topos", topoDao.lister());
 		} catch (DaoException e) {

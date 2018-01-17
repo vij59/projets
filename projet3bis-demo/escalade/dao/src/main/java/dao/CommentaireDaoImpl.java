@@ -17,26 +17,28 @@ import org.beans.Longueur;
 import org.beans.Reservation;
 import org.beans.Voie;
 
-public class CommentaireDaoImpl   implements CommentaireDao {
+public class CommentaireDaoImpl implements CommentaireDao {
 	private DaoFactory daoFactory;
+
 	CommentaireDaoImpl(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
-	public void ajouterCommentaire (Commentaire commentaire) throws DaoException {
+	public void ajouterCommentaire(Commentaire commentaire) throws DaoException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("INSERT INTO commentaire(id_topo, id_utilisateur, commentaire, date) VALUES(?, ?, ?, ?);");
+			preparedStatement = connexion.prepareStatement(
+					"INSERT INTO commentaire(id_topo, id_utilisateur, commentaire, date) VALUES(?, ?, ?, ?);");
 			preparedStatement.setInt(1, commentaire.getIdTopo());
 			preparedStatement.setInt(2, commentaire.getIdUtilisateur());
 			preparedStatement.setString(3, commentaire.getCommentaire());
 			LocalDateTime localDate = LocalDateTime.now();
-			
+
 			preparedStatement.setObject(4, localDate);
-			
+
 			preparedStatement.executeUpdate();
 			connexion.commit();
 		} catch (SQLException e) {
@@ -47,11 +49,10 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 			} catch (SQLException e2) {
 			}
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -69,19 +70,20 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT id , id_topo, id_utilisateur, commentaire , date FROM commentaire;");
+			resultat = statement
+					.executeQuery("SELECT id , id_topo, id_utilisateur, commentaire , date FROM commentaire;");
 
 			while (resultat.next()) {
-				
-				int id= resultat.getInt("id");
-				int idTopo= resultat.getInt("id_topo");
+
+				int id = resultat.getInt("id");
+				int idTopo = resultat.getInt("id_topo");
 				int idUtilisateur = resultat.getInt("id_utilisateur");
 				String comment = resultat.getString("commentaire");
 				Date date = resultat.getDate("date");
 				String timestamp = resultat.getString("date");
-			
+
 				Commentaire commentaire = new Commentaire();
-				
+
 				commentaire.setId(id);
 				commentaire.setIdTopo(idTopo);
 				commentaire.setIdUtilisateur(idUtilisateur);
@@ -95,11 +97,10 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
 		} catch (Exception e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -110,7 +111,7 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 
 	public void ajouterCommentaireSite(Commentaire commentaire) throws DaoException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public List<Commentaire> listerById(int idSite2) throws DaoException {
@@ -120,17 +121,17 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 
 	public void supprimerCommentaireSite(int idCommentaire) throws DaoException {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	public void supprimerCommentaireTopo (int idCommentaire) throws DaoException {
+
+	public void supprimerCommentaireTopo(int idCommentaire) throws DaoException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("DELETE FROM commentaire WHERE id="+idCommentaire+";");
-			
+			preparedStatement = connexion.prepareStatement("DELETE FROM commentaire WHERE id=" + idCommentaire + ";");
+
 			preparedStatement.executeUpdate();
 			connexion.commit();
 		} catch (SQLException e) {
@@ -141,11 +142,10 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 			} catch (SQLException e2) {
 			}
 			throw new DaoException("Impossible de communiquer avec la base de donn�es");
-		}
-		finally {
+		} finally {
 			try {
 				if (connexion != null) {
-					connexion.close();  
+					connexion.close();
 				}
 			} catch (SQLException e) {
 				throw new DaoException("Impossible de communiquer avec la base de donn�es");
@@ -154,6 +154,4 @@ public class CommentaireDaoImpl   implements CommentaireDao {
 
 	}
 
-
-	
 }

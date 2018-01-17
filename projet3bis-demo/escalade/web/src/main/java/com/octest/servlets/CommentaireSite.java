@@ -23,7 +23,6 @@ import dao.TopoDao;
 import dao.UtilisateurDao;
 import dao.CommentaireDao;
 
-
 /**
  * Servlet implementation class Topos
  */
@@ -32,13 +31,14 @@ public class CommentaireSite extends HttpServlet {
 	private SiteDao siteDao;
 	private CommentaireDao commentaireDao;
 	private UtilisateurDao utilisateurDao;
-	
+
 	public void init() throws ServletException {
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		this.siteDao = daoFactory.getSiteDao();
 		this.commentaireDao = daoFactory.getCommentaireSiteDao();
 		this.utilisateurDao = daoFactory.getUtilisateurDao();
 	}
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -48,9 +48,11 @@ public class CommentaireSite extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
 			request.setAttribute("sites", siteDao.lister());
@@ -61,48 +63,45 @@ public class CommentaireSite extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/detailsSite.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur = (Utilisateur) session.getAttribute( "sessionUtilisateur" );
-		System.out.println("id user");
-		System.out.println(utilisateur.getId());
-		
+		utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+		//System.out.println("id user");
+		//System.out.println(utilisateur.getId());
+
 		try {
-		int idSite =  Integer.parseInt(request.getParameter("idSite"));
-		
-		
-		System.out.println("id site");
-		System.out.println(idSite);
-		
-		Commentaire commentaire = new Commentaire();
-		String comment = request.getParameter("comment");
-		commentaire.setCommentaire(comment);
-		commentaire.setIdUtilisateur(utilisateur.getId());
-		commentaire.setIdSite(idSite);
-		
-		if(comment.equals("")) {
-			System.out.println("pas de commentaire");
+			int idSite = Integer.parseInt(request.getParameter("idSite"));
+
+			//System.out.println("id site");
+			//System.out.println(idSite);
+
+			Commentaire commentaire = new Commentaire();
+			String comment = request.getParameter("comment");
+			commentaire.setCommentaire(comment);
+			commentaire.setIdUtilisateur(utilisateur.getId());
+			commentaire.setIdSite(idSite);
+
+			if (comment.equals("")) {
+				//System.out.println("pas de commentaire");
+			} else {
+				//System.out.println(commentaire.getCommentaire());
+				commentaireDao.ajouterCommentaireSite(commentaire);
+				//System.out.println("ajouté");
+			}
+		} catch (Exception e) {
+			//System.out.println(e.getMessage());
 		}
-		else {
-			System.out.println(commentaire.getCommentaire());
-		commentaireDao.ajouterCommentaireSite(commentaire);
-		System.out.println("ajouté");
-		}
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-		
-		
+
 		session.removeAttribute("commentaire");
 
 		try {
@@ -113,8 +112,7 @@ public class CommentaireSite extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		this.getServletContext().getRequestDispatcher("/WEB-INF/commentaireValidation.jsp").forward(request, response);
 	}
 }
