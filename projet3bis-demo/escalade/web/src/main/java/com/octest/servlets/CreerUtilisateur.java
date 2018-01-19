@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.beans.BeanException;
 import org.beans.Pseudo;
@@ -51,8 +52,10 @@ public class CreerUtilisateur extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		Utilisateur utilisateur = new Utilisateur();
 		boolean mailExiste = false;
+		boolean créé = false;
 		char premiereLettreNom = request.getParameter("nom").charAt(0);
 		char premiereLettrePrenom = request.getParameter("prenom").charAt(0);
 		char premiereLettreMail = request.getParameter("mail").charAt(0);
@@ -98,6 +101,7 @@ public class CreerUtilisateur extends HttpServlet {
 
 					try {
 						utilisateurDao.ajouterUtilisateur(utilisateur);
+						créé = true;
 					} catch (DaoException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -118,8 +122,14 @@ public class CreerUtilisateur extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		
+if (créé == true) {
+	session.setAttribute("nouvelUtilisateur", utilisateur.getMail());
+	this.getServletContext().getRequestDispatcher("/WEB-INF/utilisateurAjoute.jsp").forward(request, response);
+}
+else {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/creerUtilisateur.jsp").forward(request, response);
+}
 	}
 
 }

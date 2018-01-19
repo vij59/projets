@@ -30,11 +30,9 @@ public class Utilisateur {
 
 	public void setNom(String nom) throws BeanException {
 
-		if (nom.length() > 10) {
-			throw new BeanException("Le nom est trop grand ! (10 caract�res maximum)");
-		} else {
+		
 			this.nom = nom;
-		}
+		
 	}
 
 	public String getPrenom() {

@@ -19,13 +19,13 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-8 ">
+			<div class="col-md-7 ">
 				<table class="table table-striped custab">
 					<legend>
-						<h1>
+						<h2>
 							Site :
 							<c:out value="${ site.nomSite }" />
-						</h1>
+						</h2>
 					</legend>
 
 					<tr>
@@ -42,10 +42,10 @@
 						step="1">
 						<tr style="border-top: solid grey 3px;">
 							<td>
-								<h2 style="color: red">
+								<h3 style="color: red">
 
 									<c:out value="${ site.secteurs[i].nom}" />
-								</h2>
+								</h3>
 							</td>
 
 
@@ -55,14 +55,14 @@
 
 
 
-								<td><h3 style="color: green; margin-top: 8%">
+								<td><h4 style="color: green; margin-top: 11.5%">
 
 
 										<c:out value="${ site.secteurs[i].voies[j].nom}" />
 										(
 										<c:out value="${ site.secteurs[i].voies[j].cotation}" />
 										)
-									</h3></td>
+									</h4></td>
 
 								<c:if test="${not empty site.secteurs[i].voies[j].longueurs}">
 
@@ -71,7 +71,7 @@
 										var="l" step="1">
 
 										<td>
-											<h4 style="color: blue; margin-top: 10%">
+											<h5 style="color: blue; margin-top: 14%">
 
 												<c:out
 													value="${ site.secteurs[i].voies[j].longueurs[l].nom}" />
@@ -79,7 +79,7 @@
 												<c:out
 													value="${ site.secteurs[i].voies[j].longueurs[l].cotation}" />
 												)
-											</h4>
+											</h5>
 										</td>
 						</tr>
 						<tr>

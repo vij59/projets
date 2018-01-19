@@ -65,9 +65,7 @@
 									</h4>
 									<c:out value="${ commentaire.commentaire }" />
 
-									<p>
-										<small><a href="">Like</a> - <a href="">Share</a></small>
-									</p>
+									
 								</div>
 							</div>
 						</div>
