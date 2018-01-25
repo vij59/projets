@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url("image/jumbotron2.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+}
